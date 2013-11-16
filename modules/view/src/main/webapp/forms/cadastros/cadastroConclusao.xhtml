@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.conclusao']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.conclusao']}</legend>
+
+			<table style="width: 100%; text-align: center;">
+				<tr>
+					<td style="padding-bottom: 20px;">
+						<h1>
+							<h:outputText value="#{messages['texto.confirmacao.1']}" />
+							<font color="#0173B2"><h:outputText value="#{messages['header.logo']}" /></font>
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4><h:outputText value="#{messages['texto.confirmacao.2']}" /></h4>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>
+							<font color="#1C7575">
+								<h:outputText value="#{cadastroUI.emailConf}" />
+							</font>
+						</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4><h:outputText value="#{messages['texto.confirmacao.4']}" /></h4>
+					</td>
+				</tr>
+			</table>
+						
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.login']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<center>
+
+			<fieldset id="fieldsetLogin" style="padding: 10px">
+
+				<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['login.titulo']}</legend>
+
+				<h:panelGrid columns="1">
+
+					<h:panelGrid columns="3">
+
+						<web:outputTextField id="userNameLabel"
+							value="#{messages['login.usuario']}:" required="true"
+							width="120px" align="right" />
+
+						<web:fieldMask id="userName" label="" required="true" width="300px"
+							value="#{credentials.username}" />
+
+						<p:message for="userNameText" id="userName_message" display="text"
+							redisplay="true" />
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="3">
+
+						<web:outputTextField id="senhaPwdLabel"
+							value="#{messages['login.senha']}:" required="true" width="120px"
+							align="right" />
+
+						<web:fieldPassword id="senhaPwd" value="#{credentials.password}"
+							width="100px" required="true" />
+
+						<p:message for="senhaPwdText" id="senhaPwd_message" display="text"
+							redisplay="true" />
+
+					</h:panelGrid>
+
+					<web:clear />
+
+					<h:panelGrid columns="2">
+					
+						<web:outputTextField id="compLabel"
+							value=".:" required="false" width="120px"
+							align="right" />
+					
+						<web:field label="" for="btnLogin" mode="1" required="false"
+							addMessage="false">
+	
+							<p:commandButton id="btnLogin" value="#{messages['login.logar']}" update="@form"
+								action="#{loginUI.login}" />
+	
+							<h:commandLink id="esqueceuSenhaLnk"
+								value="#{messages['login.esqueceu.senha']}"
+								action="#{loginUI.esqueceuSenha}" immediate="true" />
+	
+						</web:field>
+						
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+			</fieldset>
+
+		</center>
+
+	</ui:define>
+
+</ui:composition>

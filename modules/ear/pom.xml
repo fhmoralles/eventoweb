@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+	<modelVersion>4.0.0</modelVersion>
+	
+	<name>Evento Web Project - EAR</name>
+	
+	<parent>
+		<groupId>br.com.eventoweb</groupId>
+		<artifactId>project</artifactId>
+		<version>1.0.0-Beta</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>br.com.eventoweb</groupId>
+	<artifactId>ear</artifactId>
+	<version>1.0.0-Beta</version>
+	<packaging>ear</packaging>
+
+   <build>
+        <finalName>eventoweb-view</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+
+                    <defaultJavaBundleDir>lib</defaultJavaBundleDir>
+                    <fileNameMapping>full</fileNameMapping>
+
+                    <artifactTypeMappings>
+                        <artifactTypeMapping type="test-jar" mapping="jar" />
+                    </artifactTypeMappings>
+
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+
+                    <modules>
+                        <ejbModule>
+                            <groupId>br.com.eventoweb</groupId>
+                            <artifactId>repository</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>br.com.eventoweb</groupId>
+                            <artifactId>model</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>br.com.eventoweb</groupId>
+                            <artifactId>view</artifactId>
+                            <contextRoot>eventoweb-view</contextRoot>
+                        </webModule>
+
+                    </modules>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+	
+	<dependencies>
+	
+		<!-- Agil Erp Web -->
+
+		<dependency>
+			<groupId>br.com.projects.utils</groupId>
+			<artifactId>libutils</artifactId>
+			<version>1.0.0-Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>domain</artifactId>
+			<version>1.0.0-Beta</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>repository</artifactId>
+			<version>1.0.0-Beta</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>model</artifactId>
+			<version>1.0.0-Beta</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>view</artifactId>
+			<version>1.0.0-Beta</version>
+			<type>war</type>
+		</dependency>
+
+		<!-- Postgree -->
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+			<scope>provided</scope>
+		</dependency>
+					
+		<!-- Apache -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>			
+		
+		<!-- JavaEE -->
+
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>3.0.2.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+			<!-- <exclusions>
+				<exclusion>
+					<groupId>org.jboss.spec.javax.ejb</groupId>
+					<artifactId>jboss-ejb-api_3.0_spec</artifactId>
+				</exclusion>
+			</exclusions> -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<version>1.0.2.Final</version>
+			<scope>provided</scope>
+		</dependency>
+	
+	</dependencies>
+		
+	<repositories>
+	
+		<repository>
+			<id>Maven</id>
+			<url>http://repo.maven.apache.org/maven2/</url>
+			<layout>default</layout>
+		</repository>
+		
+		<repository>	
+			<id>jboss</id>
+			<name>JBoss Snapshots</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+		
+	</repositories> 
+		
+</project>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="head">
+		<style>
+			.tabela {
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			.links {
+				padding: 25px;
+				text-align: center;
+			}
+			
+			.ui-fieldset {
+				text-align: left;
+				display: inline-block;
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.meuseventos']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<center>
+			
+			<p:tabView>
+	
+				<p:tab title="#{messages['label.menuseventos']}">
+
+					<web:dataTable id="meusEventosUIId" rendered="#{not empty meusEventosUI.rows}"
+						value="#{meusEventosUI.rows}" styleClass="dataTable-1">
+						
+						<ui:define name="columns">
+							
+							<f:attribute name="collectionType" value="java.util.ArrayList" />
+							
+							<web:column id="meusEventosUIIdOptionsCol" align="center" width="90px"
+								title="#{messages['global.options.title']}">
+			
+								<h:panelGroup style="white-space: nowrap">
+			
+									 <web:commandButton id="meusEventosUIIdcbtnEditC" value="#{null}"
+										icon="#{messages['global.operations.edit.icon']}"
+										title="#{messages['global.operations.edit']}"
+										rendered="#{meusEventosUI.editable}" action="prepareEdit"
+										immediate="true" ajax="false" backingBean="#{eventoUI}"
+										style="margin-right: 5px;">
+			
+										<f:setPropertyActionListener value="#{dataTableItem}"
+											target="#{eventoUI.bean}" />
+			
+									</web:commandButton>
+			
+									<web:commandButton id="meusEventosUIIdcbtnViewC" value="#{null}"
+										icon="#{messages['global.operations.view.icon']}"
+										title="#{messages['global.operations.view']}"
+										rendered="#{meusEventosUI.viewable}" action="prepareDetail"
+										immediate="true" ajax="false" backingBean="#{meusEventosUI}"
+										style="margin-right: 5px;">
+			
+										<f:setPropertyActionListener value="#{dataTableItem}"
+											target="#{meusEventosUI.bean}" />
+			
+									</web:commandButton>
+			
+									 <web:commandButton id="meusEventosUIIdcbtnDelC" value="#{null}"
+										icon="#{messages['global.operations.delete.icon']}"
+										title="#{messages['global.operations.delete']}" immediate="true"
+										oncomplete="deleteDialog.show()"
+										rendered="#{meusEventosUI.deletable}" process="@this"
+										backingBean="#{meusEventosUI}" action="prepareDelete"
+										style="margin-right: 5px;" update="@form">
+			
+										<f:setPropertyActionListener value="#{dataTableItem}"
+											target="#{meusEventosUI.bean}" />
+			
+									</web:commandButton> 
+			
+								</h:panelGroup>
+			
+							</web:column>
+			
+							<web:column id="columnId" title="#{messages['label.nome']}" width="200px;">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.nome}" />
+							</web:column>
+				
+							<web:column id="columnDescricao"
+								title="#{messages['label.descricao']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.descricao}" />
+							</web:column>
+
+							<web:column id="columnData"
+								title="#{messages['label.dataevento']}"  width="100px;">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.dataEvento}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										locale="#{localeUI.locale}" timeZone="#{timezoneUI.timeZone}" />
+								</h:outputText>
+							</web:column>
+			
+						</ui:define>
+			
+					</web:dataTable>
+
+				</p:tab>
+	
+			</p:tabView>
+
+		</center>
+
+	</ui:define>
+
+</ui:composition>

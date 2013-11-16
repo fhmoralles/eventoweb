@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.confirmacao']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+		#{cadastroUI.confirmacao}	
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.confirmacao']}</legend>
+			
+			<center>
+				<h:panelGrid columns="1">
+					<h:outputText value="#{messages['texto.confirmacao.5']}" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" rendered="#{not cadastroUI.confirmado}">
+					<h:outputText style="color: red; font-size: 16px; font-weight: bold;" value="#{messages['msg.error.cadastro.confirmacao']}" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" rendered="#{cadastroUI.confirmado}">
+					<h:outputText style="color: blue; font-size: 16px; font-weight: bold;" value="#{messages['msg.info.cadastro.confirmacao']}" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" rendered="#{cadastroUI.confirmado}">
+					<h:outputText style="font-weight: bold;" value=".:#{messages['msg.info.cadastro.confirmacao.txt']}" />
+				</h:panelGrid>
+			</center>
+			
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

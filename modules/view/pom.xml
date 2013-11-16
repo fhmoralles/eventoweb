@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+	<modelVersion>4.0.0</modelVersion>
+	
+	<name>Evento Web Project - View</name>
+
+	<parent>
+		<groupId>br.com.eventoweb</groupId>
+		<artifactId>project</artifactId>
+		<version>1.0.0-Beta</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>br.com.eventoweb</groupId>
+	<artifactId>view</artifactId>
+	<version>1.0.0-Beta</version>
+	<packaging>war</packaging>
+	
+	<dependencies>
+
+		<!-- Agil Erp Web -->
+	
+		<dependency>
+			<groupId>br.com.projects.utils</groupId>
+			<artifactId>webutils</artifactId>
+			<version>1.0.0-Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.com.projects.utils</groupId>
+			<artifactId>libutils</artifactId>
+			<version>1.0.0-Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>domain</artifactId>
+			<version>1.0.0-Beta</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>model</artifactId>
+			<version>1.0.0-Beta</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Apache -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+			<scope>provided</scope>
+		</dependency>			
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- JavaEE -->
+
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>3.0.2.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<version>1.0.2.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- PrimeFaces -->
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.5</version>
+		</dependency>
+		
+		<!--<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.9</version>
+		</dependency> -->
+		
+		<!-- JBoss Seam -->
+		
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.transaction</groupId>
+			<artifactId>seam-transaction</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+		
+		<dependency>
+			  <groupId>joda-time</groupId>
+			  <artifactId>joda-time</artifactId>
+			  <version>1.6</version>
+	    </dependency>		
+		
+		<!-- drools -->
+		
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>5.2.1.Final</version>
+		</dependency>
+		
+	</dependencies>
+
+	<repositories>
+	
+		<repository>
+			<id>Maven</id>
+			<url>http://repo.maven.apache.org/maven2/</url>
+			<layout>default</layout>
+		</repository>
+		
+		<repository>	
+			<id>jboss</id>
+			<name>JBoss Snapshots</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+		
+		
+	</repositories>
+	
+</project>

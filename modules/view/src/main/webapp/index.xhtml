@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="forms/default/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="contentEvento">
+
+		<div id="page">
+		
+			<div id="content">
+			
+				<div class="box">
+					<h2>Bem-Vindo ao <b>Evento Web</b></h2>
+					<p>
+						Esse é o <strong>Evento Web</strong>, um software voltado para administração de eventos de forma <i><b>Fácil, </b></i><i><b>Rápida</b></i> e <i><b>Segura</b></i>.
+					</p>
+			
+				</div>
+			
+				<br class="clearfix" />
+			
+			</div>
+			
+			<div id="sidebar">
+			
+				<div id="fbox1">
+					<h2>#{messages['label.proximoseventos']}</h2>
+					<ul class="style3">
+						<li class="first">
+							<p class="date"><a href="#">Oct<b>15</b></a></p>
+							<h3>Amet sed volutpat mauris</h3>
+							<p><a href="#">Mauris nibh sodales adipiscing dolore.</a></p>
+						</li>
+						<li>
+							<p class="date"><a href="#">Oct<b>11</b></a></p>
+							<h3>Sagittis diam dolor sit amet</h3>
+							<p><a href="#">Duis arcu tortor fringilla sed.</a></p>
+						</li>
+						<li>
+							<p class="date"><a href="#">Oct<b>09</b></a></p>
+							<h3>Sagittis diam dolor sit amet</h3>
+							<p><a href="#">Duis arcu tortor fringilla sed.</a></p>
+						</li>
+					</ul>
+				</div>
+			
+			</div>
+			
+			<br class="clearfix" />
+		</div>
+
+	</ui:define>
+
+</ui:composition>

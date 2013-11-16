@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<div id="header">
+
+		<div id="logo">
+			<h1>
+				<a href="/eventoweb-view/index.xhtml">
+					<h:outputText value="#{messages['header.logo']}" />
+				</a>
+			</h1>
+		</div>
+
+		<div id="slogan">
+
+			<h:panelGrid columns="1" rendered="#{not identity.loggedIn}">
+
+				<h2>#{messages['header.slogan']}</h2>
+
+				<h2>
+					<h:form id="headerForm">
+						
+						<p:commandLink id="partLnk"
+							action="#{cadastroUI.prepareCreate}" ajax="false"
+							value="#{messages['menu.novo']}" style="margin-right: 10px;" />
+							
+						<p:commandLink id="loginLnk" action="#{loginUI.prepareLogin}"
+							ajax="false" value="#{messages['menu.login']}" />
+					
+					</h:form>
+				</h2>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="1" rendered="#{identity.loggedIn}">
+
+				<h:panelGrid columns="1">
+
+					<web:outputTextField id="operadorValue"
+						value="#{identity.user.usuario.participante.razaoSocial}" required="false"
+						width="200px" align="right" />
+
+				</h:panelGrid>
+
+			</h:panelGrid>
+
+		</div>
+
+	</div>
+
+</ui:composition>

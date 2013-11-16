@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">Evento:
+				#{eventoUI.bean.nome}</legend>
+
+			<p:tabView id="tabView" style="border: 0px; padding: 0px;">
+
+				<p:ajax event="tabChange" listener="#{eventoUI.onTabChange}" />
+
+				<p:tab id="p1" title="#{messages['label.organizadores']}">
+					
+					<h:outputText value="#{messages['label.busqueselecione']}:" style="margin-bottom: 5px; margin-right: 5px;" />
+					
+					<p:autoComplete id="autoComplete" value="#{eventoUI.selectedParticipante}"
+						completeMethod="#{eventoUI.autoComplete}" var="participante"
+						itemLabel="#{participante.razaoSocial}" itemValue="#{participante}"
+						converter="participanteConverter" queryDelay="100" process="@this"
+						maxResults="10" size="120" />
+					
+					<p:commandButton id="btnCadastrarOrganizador"
+						icon="#{messages['global.operations.save.icon']}" update="@form"
+						action="#{eventoUI.saveOrganizador}" style="margin-left: 5px;" />
+						
+					<p:message for="autoComplete" id="labelAutoComplete_message"
+						display="text" redisplay="true" />
+					
+					<web:dataTable id="organizdoresId"
+						value="#{eventoUI.organizadores}" styleClass="dataTable-1">
+
+						<ui:define name="columns">
+
+							<web:column id="organizdoresIdOptionsCol" align="center"
+								width="90px" title="#{messages['global.options.title']}">
+
+								<h:panelGroup style="white-space: nowrap">
+
+									<p:commandButton id="btnDeletarOrganizador"
+										icon="#{messages['global.operations.delete.icon']}" update="@form"
+										action="#{eventoUI.deleteOrganizador}" style="margin-left: 5px;">
+										
+										<f:setPropertyActionListener value="#{dataTableItem}"
+											target="#{eventoUI.organizdorSelected}" />
+
+									</p:commandButton>
+
+								</h:panelGroup>
+
+							</web:column>
+
+							<web:column id="organizdoresColumnNome"
+								title="#{messages['label.nome']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.participante.razaoSocial}" />
+							</web:column>
+
+						</ui:define>
+
+					</web:dataTable>
+
+				</p:tab>
+
+				<p:tab id="p2" title="#{messages['label.locais']}">
+
+					<p:tabView id="p2TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p2TabViewCad" title="#{messages['label.cadastrados']}">
+
+							<web:dataTable id="locaisId" value="#{eventoUI.locais}"
+								styleClass="dataTable-1">
+
+								<ui:define name="columns">
+
+									<web:column id="locaisIdOptionsCol" align="center" width="90px"
+										title="#{messages['global.options.title']}">
+
+										<h:panelGroup style="white-space: nowrap">
+
+											<web:commandButton id="locaisIdcbtnDelC" value="#{null}"
+												icon="#{messages['global.operations.delete.icon']}"
+												title="#{messages['global.operations.delete']}"
+												immediate="true" oncomplete="deleteDialog.show()"
+												process="@this" backingBean="#{eventoUI}"
+												action="prepareDelete" style="margin-right: 5px;"
+												update="@form">
+
+												<f:setPropertyActionListener value="#{dataTableItem}"
+													target="#{eventosUI.organizdorSelected}" />
+
+											</web:commandButton>
+
+										</h:panelGroup>
+
+									</web:column>
+
+									<web:column id="locaisColumnNome"
+										title="#{messages['label.nome']}">
+										<h:outputText style="text-align: center; display: block;"
+											value="#{dataTableItem.lugar.razaoSocial}" />
+									</web:column>
+
+									<web:column id="locaisColumnValor"
+										title="#{messages['label.nome']}">
+										<h:outputText style="text-align: center; display: block;"
+											value="#{dataTableItem.valorLocacao}" />
+									</web:column>
+
+								</ui:define>
+
+							</web:dataTable>
+
+						</p:tab>
+
+						<p:tab id="p2TabViewAdic" title="#{messages['label.adicionar']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p3" title="#{messages['label.palestras']}">
+
+					<p:tabView id="p3TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p3TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+						<p:tab id="p3TabViewAdic" title="#{messages['label.adicionar']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p4" title="#{messages['label.cursos']}">
+
+					<p:tabView id="p4TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p4TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+						<p:tab id="p4TabViewAdic" title="#{messages['label.adicionar']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p5" title="#{messages['label.minicursos']}">
+
+					<p:tabView id="p5TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p5TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+						<p:tab id="p5TabViewAdic" title="#{messages['label.adicionar']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p6" title="#{messages['label.workshops']}">
+
+					<p:tabView id="p6TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p6TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+						<p:tab id="p6TabViewAdic" title="#{messages['label.adicionar']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p7" title="#{messages['label.patrocinadores']}">
+
+					<p:tabView id="p7TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p7TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p8" title="#{messages['label.realizadores']}">
+
+					<p:tabView id="p8TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p8TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+				<p:tab id="p9" title="#{messages['label.apoiadores']}">
+
+					<p:tabView id="p9TabView" style="border: 0px; padding: 0px;">
+
+						<p:tab id="p9TabViewCad" title="#{messages['label.cadastrados']}">
+						</p:tab>
+
+					</p:tabView>
+
+				</p:tab>
+
+			</p:tabView>
+
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

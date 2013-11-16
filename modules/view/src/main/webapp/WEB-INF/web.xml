@@ -1,0 +1,85 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+	 
+	<display-name>Consult Web</display-name>
+    <description>Consult Web - Serviço de Proteção ao Crédito</description>
+
+	<!-- 
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>redmond</param-value>
+	</context-param> 
+	-->
+	<context-param>
+        <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
+        <param-value>br.com.webutils.facelets.ClasspathResourceResolver</param-value>
+    </context-param>
+	
+	 
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.facelets.DEVELOPMENT</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+	<!-- 
+	<context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>${javax.faces.FACELETS_REFRESH_PERIOD}</param-value>
+    </context-param>  
+	 -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!--
+	       # http://docs.jboss.org/seam/3/latest/reference/en-US/html/components.html#UIInputContainer
+
+	       NOTE: Firefox does not properly associate a label with the target input if the
+	       input id contains a colon ( : ), the default separator character in JSF.
+	       JSF 2 allows developers to set the value via an initialization parameter
+	       (context-param in web.xml) keyed to javax.faces.SEPARATOR_CHAR.
+	       We recommend that you override this setting to make the separator an underscore (_).
+	 -->
+	<context-param>
+		<param-name>javax.faces.SEPARATOR_CHAR</param-name>
+		<param-value>_</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/login.xhtml</location>
+    </error-page>
+
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+		
+</web-app>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+			<p:menuitem
+				value="#{messages['navegacao.novoevento']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.novocadastro']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelNome"
+					value="#{messages['label.nome']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputNome"
+					value="#{eventoUI.bean.nome}" required="true" width="360px" />
+
+				<p:message for="inputNomeText" id="labelNome_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelDescricao"
+					value="#{messages['label.descricao']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldTextarea id="inputDescricao"
+					value="#{eventoUI.bean.descricao}" required="true"
+					width="360px" />
+
+				<p:message for="inputDescricaoText" id="labelDescricao_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelDataEvento"
+					value="#{messages['label.dataevento']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldCalendar id="inputDataEvento"
+					value="#{eventoUI.bean.dataEvento}" required="true"
+					width="360px" />
+
+				<p:message for="inputDataEventoText" id="labelDataEvento_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetRestricao" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.confirmar']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnCadastrarLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnCadastrar" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnCadastrar"
+						value="#{messages['label.cadastrar']}" update="@form"
+						action="#{eventoUI.save}" style="margin-left: 5px;" />
+
+					<p:commandButton id="btnVoltar" value="#{messages['label.voltar']}"
+						action="/main.xhtml" immediate="true" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+	<ui:define name="dialogs">
+
+		<p:dialog id="searchAssociadoDialog"
+			header="#{messages['label.termos']}"
+			widgetVar="termoDialog" resizable="false" modal="true">
+		
+			<p:inputTextarea value="#{messages['label.termos']}" autoResize="true|false"/>
+			
+		</p:dialog>
+		
+	</ui:define>
+
+</ui:composition>

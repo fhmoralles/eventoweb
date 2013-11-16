@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.cadastro']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.novocadastro']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelTipoDocumento"
+					value="#{messages['label.tipodocumento']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldSelectOneMenu id="inputTipoDocumento"
+					value="#{cadastroUI.bean.tipoDocumento}" required="true"
+					width="150px">
+
+					<web:enumSelectItems value="#{cadastroUI.tiposDocumento}" />
+					<p:ajax listener="#{cadastroUI.changePattern}" process="@this"
+						update="inputDocumentoText" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputTipoDocumentoText"
+					id="inputTipoDocumento_message" display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelDocumento"
+					value="#{messages['label.documento']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldMask id="inputDocumento"
+					value="#{cadastroUI.bean.documento}" required="true" width="140px"
+					mask="#{cadastroUI.documentoPattern}" />
+
+				<p:message for="inputDocumentoText" id="labelDocumento_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelDescricao"
+					value="#{messages['label.participante.razaosocial']}:"
+					required="true" width="120px" align="right" />
+
+				<web:fieldInputText id="inputDescricao" required="true"
+					width="360px" value="#{cadastroUI.bean.razaoSocial}"
+					readonly="#{cadastroUI.isViewing()}" />
+
+				<p:message for="inputDescricaoText" id="inputDescricao_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelApelido"
+					value="#{messages['label.participante.fantasia']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputApelido" required="true" width="180px"
+					value="#{cadastroUI.bean.fantasia}"
+					readonly="#{cadastroUI.isViewing()}" />
+
+				<p:message for="inputApelidoText" id="inputApelido_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelCep" value="#{messages['label.cep']}:"
+					required="false" width="120px" align="right" />
+
+				<web:fieldMask id="inputCep" value="#{cadastroUI.bean.cep}"
+					required="false" width="100px" maxlength="9" mask="99999-999" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelEndereco"
+					value="#{messages['label.endereco']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputEndereco"
+					value="#{cadastroUI.bean.endereco}" required="false" width="360px" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelNumero"
+					value="#{messages['label.numero']}:" required="false" width="120px"
+					align="right" />
+
+				<web:fieldInputText id="inputNumero"
+					value="#{cadastroUI.bean.numero}" required="false" width="100px" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelComplemento"
+					value="#{messages['label.complemento']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputComplemento"
+					value="#{cadastroUI.bean.complemento}" required="false"
+					width="180px" />
+
+				<web:outputTextField id="labelBairro"
+					value="#{messages['label.bairro']}:" required="false" width="170px"
+					align="right" />
+
+				<web:fieldInputText id="inputBairro"
+					value="#{cadastroUI.bean.bairro}" required="false" width="180px" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelCidade"
+					value="#{messages['label.cidade']}:" required="false" width="120px"
+					align="right" />
+
+				<web:fieldInputText id="inputCidade"
+					value="#{cadastroUI.bean.cidade}" required="false" width="180px" />
+
+				<web:outputTextField id="labelEstado"
+					value="#{messages['label.estado']}:" required="false" width="170px"
+					align="right" />
+
+				<web:fieldSelectOneMenu id="selectEstado"
+					value="#{cadastroUI.bean.estado}" required="false" width="150px">
+
+					<web:enumSelectItems value="#{cadastroUI.estados}" />
+
+				</web:fieldSelectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelTelefone"
+					value="#{messages['label.telefone']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldMask id="inputTelefone"
+					value="#{cadastroUI.bean.telefone}" required="false" width="145px"
+					mask="(99) 9999-9999" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelFax" value="#{messages['label.fax']}:"
+					required="false" width="120px" align="right" />
+
+				<web:fieldMask id="inputFax" value="#{cadastroUI.bean.fax}"
+					required="false" width="145px" mask="(99) 9999-9999" />
+
+				<web:outputTextField id="labelCelular"
+					value="#{messages['label.celular']}:" required="false"
+					width="205px" align="right" />
+
+				<web:fieldMask id="inputCelular" value="#{cadastroUI.bean.celular}"
+					required="false" width="145px" mask="(99) 9999-9999" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelTwitter"
+					value="#{messages['label.twitter']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputTwitter"
+					value="#{cadastroUI.bean.twitter}" required="false" width="145px" />
+
+				<web:outputTextField id="labelFacebook"
+					value="#{messages['label.facebook']}:" required="false"
+					width="205px" align="right" />
+
+				<web:fieldInputText id="inputFacebook"
+					value="#{cadastroUI.bean.facebook}" required="false" width="145px" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelLinkedin"
+					value="#{messages['label.linkedin']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputLinkedin"
+					value="#{cadastroUI.bean.linkedin}" required="false" width="145px" />
+
+				<web:outputTextField id="labelGoogleplus"
+					value="#{messages['label.googleplus']}:" required="false"
+					width="205px" align="right" />
+
+				<web:fieldInputText id="inputGoogleplus"
+					value="#{cadastroUI.bean.googleplus}" required="false"
+					width="145px" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.acesso']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelEmail"
+					value="#{messages['label.email']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldInputText id="inputEmail" required="true" width="360px"
+					value="#{cadastroUI.email}" />
+
+				<p:message for="inputEmailText" id="inputEmail_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelSenha"
+					value="#{messages['label.senha']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldPassword id="inputSenha" required="true" width="140px"
+					value="#{cadastroUI.senha}"
+					validatorMessage="#{messages['label.senha.incorreta']}" />
+
+				<p:message for="inputSenhaText" id="inputSenha_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelSenhaConf"
+					value="#{messages['label.senhaconf']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldPassword id="inputSenhaConf" required="true" width="140px"
+					value="#{cadastroUI.senhaConf}" />
+
+				<p:message for="inputSenhaConfText" id="inputSenhaConf_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelPontosA" value=".:" width="120px"
+					align="right" />
+
+				<p:commandLink id="lnkTermos" value="#{messages['label.termos']}"
+					onclick="termoDialog.show();" immediate="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelPontosB" value=".:" required="true"
+					width="120px" align="right" />
+
+				<p:selectBooleanCheckbox id="inputTermos" style="margin-right: 5px;"
+					required="true" value="#{cadastroUI.aceite}" />
+
+				<web:outputTextField id="labelTermosAceite"
+					value="#{messages['label.termosaceite']}" width="200px"
+					align="left" />
+
+				<p:message for="inputTermos" id="inputTermos_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetRestricao" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.confirmar']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnCadastrarLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnCadastrar" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnCadastrar"
+						value="#{messages['label.cadastrar']}" update="@form"
+						action="#{cadastroUI.save}" style="margin-left: 5px;" />
+
+					<p:commandButton id="btnVoltar" value="#{messages['label.voltar']}"
+						action="/index.xhtml" immediate="true" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+	<ui:define name="dialogs">
+
+		<p:dialog id="searchAssociadoDialog"
+			header="#{messages['label.termos']}"
+			widgetVar="termoDialog" resizable="false" modal="true">
+		
+			<p:inputTextarea value="#{messages['label.termos']}" autoResize="true|false"/>
+			
+		</p:dialog>
+		
+	</ui:define>
+
+</ui:composition>

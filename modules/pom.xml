@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+	<modelVersion>4.0.0</modelVersion>
+		
+	<name>Evento Web Project</name>
+
+	<organization>
+		<name>Consult Systems</name>
+		<url>http://www.consult.com.br/</url>
+	</organization>
+
+	<properties>
+		<project.company>Consult Systems</project.company>
+		<project.name>EventoWeb</project.name>
+		<project.version>1.0.0-Beta</project.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- <seam.version>3.1.0.Final</seam.version> -->
+		<!-- <cargo.wait>false</cargo.wait> -->
+		<!-- <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE> -->
+		<!-- <javax.facelets.DEVELOPMENT>true</javax.facelets.DEVELOPMENT> -->
+		<javax.faces.FACELETS_REFRESH_PERIOD>1</javax.faces.FACELETS_REFRESH_PERIOD>
+		<java.version>1.7</java.version>
+		<project.root>${basedir}</project.root>		
+	</properties>
+	
+	<groupId>br.com.eventoweb</groupId>
+	<artifactId>project</artifactId>
+	<version>1.0.0-Beta</version>
+	<packaging>pom</packaging>
+
+	<profiles>
+	
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>domain</module>
+				<module>repository</module>
+				<module>model</module>
+				<module>view</module>
+				<module>ear</module>
+			</modules>
+		</profile>
+
+	</profiles>	
+
+</project>

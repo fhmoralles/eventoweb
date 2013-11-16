@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+<h:head>
+	<meta http-equiv="Content-Type" content='text/html; charset=UTF-8' />
+	<meta http-equiv="Content-Language" content="pt-BR" />
+
+	<title>#{messages['header.logo']} -
+		#{messages['header.slogan']}</title>
+
+	<f:facet name="last">
+		<h:outputStylesheet name="/css/style.css" />
+		<h:outputScript name="/js/inputCurrency.js" />
+	</f:facet>
+
+	<ui:insert name="head"></ui:insert>
+
+</h:head>
+
+<h:body>
+
+	<f:view contentType="text/html">
+
+		<div id="wrapper">
+
+			<ui:include src="header.xhtml" />
+
+			<ui:include src="menu.xhtml" />
+
+			<ui:insert name="breadcrumbEvento" />
+
+			<div id="page">
+
+				<div id="contentForm">
+
+					<h:form id="contentEventoForm">
+
+						<p:ajaxStatus onstart="statusDialog.show()"
+							oncomplete="statusDialog.hide()" />
+
+						<p:dialog id="statusDialogId" widgetVar="statusDialog"
+							modal="true" closable="false" draggable="false"
+							header="Aguarde..." style="width: 200px;">
+							
+							<p:graphicImage value="/images/ajaxloadingbar.gif" />
+						
+						</p:dialog>
+
+						<p:messages id="msg" globalOnly="true" />
+
+						<ui:insert name="contentEvento" />
+
+					</h:form>
+
+				</div>
+
+			</div>
+
+			<div id="page-bottom">
+				<div id="page-bottom-content">
+					<div>
+						<span><h:outputText value="#{messages['layout.title']} - #{messages['layout.version']}: #{messages['layout.version.number']}" /> </span>
+					</div>
+				</div>
+				<br class="clearfix" />
+			</div>
+
+		</div>
+
+		<ui:include src="footer.xhtml" />
+
+		<h:panelGroup id="dialogs">
+
+			<ui:insert name="dialogs"></ui:insert>
+
+		</h:panelGroup>
+
+	</f:view>
+
+</h:body>
+
+</html>

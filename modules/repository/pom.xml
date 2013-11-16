@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+	<modelVersion>4.0.0</modelVersion>
+	
+	<name>Evento Web Project - Repository</name>
+	
+	<parent>
+		<groupId>br.com.eventoweb</groupId>
+		<artifactId>project</artifactId>
+		<version>1.0.0-Beta</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<groupId>br.com.eventoweb</groupId>
+	<artifactId>repository</artifactId>
+	<version>1.0.0-Beta</version>
+	<packaging>jar</packaging>
+	
+	<dependencies>
+	
+		<!-- Partnership -->
+
+		<dependency>
+			<groupId>br.com.projects.utils</groupId>
+			<artifactId>libutils</artifactId>
+			<version>1.0.0-Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.eventoweb</groupId>
+			<artifactId>domain</artifactId>
+			<version>1.0.0-Beta</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Postgree -->
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+			<scope>provided</scope>
+		</dependency>
+					
+		<!-- Apache -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+			<scope>provided</scope>
+		</dependency>			
+		
+		<!-- JavaEE -->
+
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>3.0.2.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<version>1.0.2.Final</version>
+			<scope>provided</scope>
+		</dependency> -->
+		
+	</dependencies>
+	
+</project>

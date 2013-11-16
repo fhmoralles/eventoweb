@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- $NO_CHECK -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:consult="http://www.consult.com.br/jsf/consultutils">
+
+	<!--
+
+	//Documentar os atributos do componente
+	
+    TAG ATTRIBUTES:
+
+     -->
+
+	<h:form id="menuForm" rendered="#{identity.loggedIn}">
+
+		<div id="menu">
+
+			<p:menubar id="menuBar">
+
+				<p:menuitem url="/index.xhtml" icon="ui-icon ui-icon-home"
+					id="menuHome" />
+
+
+				<p:submenu label="#{messages['menu.perfil']}" id="submenuPerfil"
+					rendered="#{identity.user.menuPerfil}">
+
+					<p:menuitem id="menuItemEditarPerfil"
+						value="#{messages['menu.perfil.editar']}"
+						action="#{participanteUI.prepareEdit}" ajax="true"
+						rendered="#{identity.user.subMenuPerfil}" />
+
+					<p:menuitem id="menuItemMeusEventos"
+						value="#{messages['menu.perfil.eventos']}"
+						action="/main.xhtml" ajax="true"
+						rendered="#{identity.user.subMenuEventos}" />
+
+				</p:submenu>
+
+				<p:submenu label="#{messages['menu.eventos']}" id="submenuEventos">
+
+					<p:menuitem id="menuIteCriarEventos"
+						value="#{messages['menu.eventos.criar']}"
+						action="#{eventoUI.prepareCreate}" ajax="true"
+						rendered="#{identity.user.subMenuCriarEvento}" />
+
+					<p:menuitem id="menuItemPesquisarEventos"
+						value="#{messages['menu.eventos.pesquisar']}"
+						action="#{eventoUI.prepareSearch}" ajax="true"
+						rendered="#{identity.user.subMenuPesquisarEvento}" />
+
+				</p:submenu>
+
+				<p:submenu label="#{messages['menu.sair']}" id="submenuSair">
+
+					<p:menuitem id="menuItemSobre"
+						value="#{messages['menu.sair.sobre']}" action="#{sairUI.sobre}" />
+
+					<p:menuitem id="menuItemRelease"
+						value="#{messages['menu.sair.release']}"
+						action="#{sairUI.release}" />
+
+					<p:separator />
+
+					<p:menuitem id="menuItemLogout"
+						value="#{messages['menu.sair.logout']}"
+						action="#{logoutUI.logout}" />
+
+				</p:submenu>
+
+			</p:menubar>
+
+		</div>
+
+	</h:form>
+
+</ui:composition>
+
+
