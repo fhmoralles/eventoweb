@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jboss.seam.security.annotations.LoggedIn;
 
 import br.com.eventoweb.domain.cadastro.Participante;
 import br.com.eventoweb.domain.parametros.Usuario;
@@ -28,6 +29,7 @@ import br.com.webutils.ui.AbstractCRUD;
 
 @Named
 @SessionScoped
+@LoggedIn
 public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 
 	/**
@@ -349,7 +351,13 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 
 		if (id != null && token != null) {
 
-			Usuario u = usuarioModel.retrieve(Long.parseLong(id));
+			Usuario u = null;
+			try {
+				u = usuarioModel.retrieve(Long.parseLong(id));
+			} catch(Exception e) {
+				u = null;
+				LOG.error(e.getMessage(), e);
+			}
 
 			if (u != null && !u.getAtivo()) {
 

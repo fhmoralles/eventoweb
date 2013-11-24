@@ -1,6 +1,7 @@
 package br.com.eventoweb.domain.cadastro;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -74,6 +76,9 @@ public class Lugar implements Serializable {
 	@Column(name = "fax", nullable = true, insertable = true, updatable = true, length = 20)
 	private String fax;
 
+	@OneToMany(mappedBy = "lugar")
+	private List<LugarEspaco> lugaresEspaco;
+	
 	public Long getId() {
 		return id;
 	}
@@ -184,6 +189,14 @@ public class Lugar implements Serializable {
 
 	public void setFax(String fax) {
 		this.fax = fax;
+	}
+
+	public List<LugarEspaco> getLugaresEspaco() {
+		return lugaresEspaco;
+	}
+
+	public void setLugaresEspaco(List<LugarEspaco> lugaresEspaco) {
+		this.lugaresEspaco = lugaresEspaco;
 	}
 
 	@Override

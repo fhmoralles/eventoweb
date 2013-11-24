@@ -19,9 +19,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import br.com.eventoweb.domain.cadastro.Participante;
 
 @Entity
-@Table(name = "organizador")
+@Table(name = "eventoorganizador")
 @SequenceGenerator(name = "identificador", sequenceName = "identificador")
-public class Organizador implements Serializable {
+public class EventoOrganizador implements Serializable {
 
 	/**
 	 * 
@@ -65,12 +65,11 @@ public class Organizador implements Serializable {
 		this.participante = participante;
 	}
 
-
 	@Override
 	public boolean equals(Object arg0) {
 
-		if (arg0 instanceof Organizador) {
-			final Organizador c = (Organizador) arg0;
+		if (arg0 instanceof EventoOrganizador) {
+			final EventoOrganizador c = (EventoOrganizador) arg0;
 			return new EqualsBuilder().append(this.getId(),
 					c.getId()).isEquals();
 		}

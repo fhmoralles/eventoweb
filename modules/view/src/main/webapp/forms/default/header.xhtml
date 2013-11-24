@@ -42,9 +42,23 @@
 
 				<h:panelGrid columns="1">
 
-					<web:outputTextField id="operadorValue"
-						value="#{identity.user.usuario.participante.razaoSocial}" required="false"
-						width="200px" align="right" />
+					<div style="float: left; width: 200px; text-align: right; ">
+						<h2>#{identity.user.usuario.participante.razaoSocial}</h2>
+					</div>
+					
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+
+					<h:form id="logoutForm">
+
+						<div style="float: left; width: 200px; text-align: right; ">
+							<p:commandLink id="logoutLnk" action="#{logoutUI.logout}"
+								ajax="true" value="#{messages['menu.logout']}" />
+						</div>
+											
+					</h:form>
+
 
 				</h:panelGrid>
 

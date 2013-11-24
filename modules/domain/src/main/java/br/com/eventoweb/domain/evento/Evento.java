@@ -57,10 +57,10 @@ public class Evento implements Serializable {
 	private Participante participante;
 	
 	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-	private List<Organizador> organizadores;
+	private List<EventoOrganizador> organizadores;
 
 	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-	private List<Local> locais;
+	private List<EventoLocal> locais;
 	
 	public Long getId() {
 		return id;
@@ -110,19 +110,19 @@ public class Evento implements Serializable {
 		this.participante = participante;
 	}
 
-	public List<Organizador> getOrganizadores() {
+	public List<EventoOrganizador> getOrganizadores() {
 		return organizadores;
 	}
 
-	public void setOrganizadores(List<Organizador> organizadores) {
+	public void setOrganizadores(List<EventoOrganizador> organizadores) {
 		this.organizadores = organizadores;
 	}
 
-	public List<Local> getLocais() {
+	public List<EventoLocal> getLocais() {
 		return locais;
 	}
 
-	public void setLocais(List<Local> locais) {
+	public void setLocais(List<EventoLocal> locais) {
 		this.locais = locais;
 	}
 

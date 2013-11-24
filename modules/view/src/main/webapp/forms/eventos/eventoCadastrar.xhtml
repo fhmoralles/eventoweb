@@ -15,9 +15,13 @@
 			<p:menuitem
 				value="#{messages['navegacao.meuseventos']}"
 				action="#{meusEventosUI.prepareSearch}" />
-
-			<p:menuitem
+			
+			
+			<p:menuitem rendered="#{eventoUI.inserting}"
 				value="#{messages['navegacao.novoevento']}" />
+
+			<p:menuitem rendered="#{eventoUI.editing}"
+				value="#{messages['navegacao.editarevento']}" />
 
 		</web:breadcrumb>
 
@@ -27,7 +31,7 @@
 
 		<fieldset id="fieldsetLogin" style="padding: 10px">
 
-			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.novocadastro']}</legend>
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.dados']}</legend>
 
 			<h:panelGrid columns="3">
 
@@ -73,8 +77,61 @@
 
 			</h:panelGrid>
 
+			<h:panelGrid columns="2" rendered="#{eventoUI.editing}">
+
+				<web:outputTextField id="labelCriador"
+					value="#{messages['label.criador']}:" required="false"
+					width="120px" align="right" />
+
+				<web:outputTextField id="inputCriador"
+					value="#{eventoUI.bean.participante.razaoSocial}" required="false"
+					width="360px" align="left" />
+
+			</h:panelGrid>
+
 		</fieldset>
 
+		<p:outputPanel rendered="#{eventoUI.editing}">
+
+			<fieldset id="fieldsetOpcoes" style="padding: 10px">
+	
+				<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.opcoes']}</legend>
+	
+				<center>
+					
+					<p:commandButton id="organizadoresLnk" action="#{eventoOrganizadorUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.organizador']}"
+						style="font-size: 12px;" update="@form">
+						
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{eventoOrganizadorUI.filter.evento}" />
+						
+					</p:commandButton>
+					
+					<p:commandButton id="locaisLnk" action="#{eventoLocalUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.local']}"
+						style="font-size: 12px;">
+						
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{eventoLocalUI.filter.evento}" />
+						
+					</p:commandButton>
+
+					<p:commandButton id="palestrasLnk" action="#{eventoPalestraUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.palestra']}"
+						style="font-size: 12px;">
+						
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{eventoPalestraUI.filter.evento}" />
+						
+					</p:commandButton>
+					
+				</center>
+				
+			</fieldset>
+					
+		</p:outputPanel>
+		
 		<fieldset id="fieldsetRestricao" style="padding: 10px">
 
 			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.confirmar']}</legend>
@@ -92,7 +149,7 @@
 						action="#{eventoUI.save}" style="margin-left: 5px;" />
 
 					<p:commandButton id="btnVoltar" value="#{messages['label.voltar']}"
-						action="/main.xhtml" immediate="true" />
+						action="#{meusEventosUI.prepareSearch}" immediate="true" />
 
 				</web:field>
 
@@ -100,18 +157,6 @@
 
 		</fieldset>
 
-	</ui:define>
-
-	<ui:define name="dialogs">
-
-		<p:dialog id="searchAssociadoDialog"
-			header="#{messages['label.termos']}"
-			widgetVar="termoDialog" resizable="false" modal="true">
-		
-			<p:inputTextarea value="#{messages['label.termos']}" autoResize="true|false"/>
-			
-		</p:dialog>
-		
 	</ui:define>
 
 </ui:composition>

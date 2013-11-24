@@ -62,23 +62,11 @@
 										icon="#{messages['global.operations.edit.icon']}"
 										title="#{messages['global.operations.edit']}"
 										rendered="#{meusEventosUI.editable}" action="prepareEdit"
-										immediate="true" ajax="false" backingBean="#{eventoUI}"
+										immediate="true" ajax="true" backingBean="#{eventoUI}"
 										style="margin-right: 5px;">
 			
 										<f:setPropertyActionListener value="#{dataTableItem}"
 											target="#{eventoUI.bean}" />
-			
-									</web:commandButton>
-			
-									<web:commandButton id="meusEventosUIIdcbtnViewC" value="#{null}"
-										icon="#{messages['global.operations.view.icon']}"
-										title="#{messages['global.operations.view']}"
-										rendered="#{meusEventosUI.viewable}" action="prepareDetail"
-										immediate="true" ajax="false" backingBean="#{meusEventosUI}"
-										style="margin-right: 5px;">
-			
-										<f:setPropertyActionListener value="#{dataTableItem}"
-											target="#{meusEventosUI.bean}" />
 			
 									</web:commandButton>
 			
