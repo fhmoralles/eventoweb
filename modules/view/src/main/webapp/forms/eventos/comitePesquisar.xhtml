@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+			
+			
+			<p:menuitem 
+				value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.comites']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<web:searchOptionsPanel id="searchComite"
+			backingBean="#{comiteUI}" showOnly="true">
+
+			<ui:define name="searchContent">
+				
+				<h:panelGrid columns="2">
+				
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 120px; text-align: right; ">
+							<h:outputText id="labelEvento" value="#{messages['label.evento']}:" style="font-size: 14px;" />
+						</div>
+					</h:panelGroup>
+										
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 360px; text-align: left; ">
+							<h:outputText id="inputEvento" value="#{comiteUI.filter.evento.nome}" style="font-size: 14px; font-weight: bold;" />
+						</div>
+					</h:panelGroup>
+					
+				</h:panelGrid>
+				
+			</ui:define>
+
+		</web:searchOptionsPanel>
+
+		<web:searchResultDataTable id="gridComites"
+			backingBean="#{comiteUI}" style="margin: 5px;">
+
+			<p:column style="text-align: center; width: 50px;">
+				<f:facet name="header">
+					#{messages['label.detalhes']}
+				</f:facet>
+				
+				<p:rowToggler />
+			</p:column>
+
+			<p:rowExpansion>
+				
+				<p:dataTable widgetVar="dataTableDetail" id="detailDataTable"
+					value="#{dataTableItem.membros}" var="dataTableDetailItem"
+					rows="100" paginatorAlwaysVisible="false"
+					emptyMessage="#{messages['global.msg.search_not_found']}">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages['label.membros']}" />
+						</f:facet>
+
+						<h:outputText value="#{dataTableDetailItem.participante.cadastro.razaoSocial}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages['label.funcao']}" />
+						</f:facet>
+
+						<h:outputText value="#{dataTableDetailItem.tipoComiteMembro}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:rowExpansion>
+
+			<p:column style="text-align: center; width: 50px;">
+				<f:facet name="header">
+					#{messages['label.membros']}
+				</f:facet>
+				
+				<p:commandButton id="membrosLnk" action="#{comiteMembroUI.prepareSearch}"
+					ajax="true" value="#{messages['label.editarmembros']}"
+					style="font-size: 12px; margin-bottom: 5px;">
+
+					<f:setPropertyActionListener value="#{dataTableItem}"
+						target="#{comiteMembroUI.filter.comite}" />
+
+				</p:commandButton>
+				
+			</p:column>
+
+			<web:column id="comitesColumnDescricao"
+				title="#{messages['label.descricao']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.descricao}" />
+			</web:column>
+
+			<web:column id="comitesColumnTema"
+				title="#{messages['label.tema']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.tema.descricao}" />
+			</web:column>
+
+			<web:column id="comitesColumnPresidente"
+				title="#{messages['label.presidente']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{comiteUI.nomePresidente(dataTableItem)}" />
+			</web:column>
+
+		</web:searchResultDataTable>
+
+	</ui:define>
+
+</ui:composition>

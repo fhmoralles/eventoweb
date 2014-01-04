@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.types.TipoInscricao;
 
 @Entity
 @Table(name = "evento")
@@ -37,30 +37,38 @@ public class Evento implements Serializable {
 	@Column(name = "id", nullable = false, insertable = true, updatable = false)
 	@GeneratedValue(generator = "identificador", strategy = GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	@Column(name = "nome", nullable = false, insertable = true, updatable = true, length = 255)
 	private String nome;
 
-	@Column(name = "descricao", nullable = false, insertable = true, updatable = true, length = 255)
+	@Column(name = "descricao", nullable = false, insertable = true, updatable = true, length = 1024)
 	private String descricao;
 
-	@Column(name = "dataevento", nullable = false, insertable = true, updatable = true)
+	@Column(name = "datainicio", nullable = false, insertable = true, updatable = true)
 	@Temporal(value = TemporalType.DATE)
-	private Date dataEvento;
+	private Date dataInicio;
 
-	@Column(name = "datacadastro", nullable = false, insertable = true, updatable = true)
+	@Column(name = "datacadastro", nullable = false, insertable = true, updatable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 
-	@ManyToOne
-	@JoinColumn(name = "id_participante", nullable = false, insertable = true, updatable = false)
-	private Participante participante;
-	
-	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-	private List<EventoOrganizador> organizadores;
+	@Column(name = "tipoinscricao", nullable = true, insertable = true, updatable = true, length = 16)
+	@Enumerated(EnumType.STRING)
+	private TipoInscricao tipoInscricao;
 
-	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-	private List<EventoLocal> locais;
+	@Column(name = "datafim", nullable = true, insertable = true, updatable = true)
+	@Temporal(value = TemporalType.DATE)
+	private Date dataFim;
+
+	@Column(name = "sobre", nullable = false, insertable = true, updatable = true, length = 4096)
+	private String sobre;
+
+	@Column(name = "datasubmissao", nullable = false, insertable = true, updatable = true)
+	@Temporal(value = TemporalType.DATE)
+	private Date dataSubmissao;
+	
+	@OneToMany(mappedBy = "evento", fetch = FetchType.EAGER)
+	private List<Participante> participantes; 
 	
 	public Long getId() {
 		return id;
@@ -86,14 +94,6 @@ public class Evento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getDataEvento() {
-		return dataEvento;
-	}
-
-	public void setDataEvento(Date dataEvento) {
-		this.dataEvento = dataEvento;
-	}
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -101,29 +101,53 @@ public class Evento implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
-	public Participante getParticipante() {
-		return participante;
+
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setParticipante(Participante participante) {
-		this.participante = participante;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public List<EventoOrganizador> getOrganizadores() {
-		return organizadores;
+	public TipoInscricao getTipoInscricao() {
+		return tipoInscricao;
 	}
 
-	public void setOrganizadores(List<EventoOrganizador> organizadores) {
-		this.organizadores = organizadores;
+	public void setTipoInscricao(TipoInscricao tipoInscricao) {
+		this.tipoInscricao = tipoInscricao;
 	}
 
-	public List<EventoLocal> getLocais() {
-		return locais;
+	public Date getDataFim() {
+		return dataFim;
 	}
 
-	public void setLocais(List<EventoLocal> locais) {
-		this.locais = locais;
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public String getSobre() {
+		return sobre;
+	}
+
+	public void setSobre(String sobre) {
+		this.sobre = sobre;
+	}
+
+	public List<Participante> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(List<Participante> participantes) {
+		this.participantes = participantes;
+	}
+
+	public Date getDataSubmissao() {
+		return dataSubmissao;
+	}
+
+	public void setDataSubmissao(Date dataSubmissao) {
+		this.dataSubmissao = dataSubmissao;
 	}
 
 	@Override
@@ -131,8 +155,8 @@ public class Evento implements Serializable {
 
 		if (arg0 instanceof Evento) {
 			final Evento c = (Evento) arg0;
-			return new EqualsBuilder().append(this.getId(),
-					c.getId()).isEquals();
+			return new EqualsBuilder().append(this.getId(), c.getId())
+					.isEquals();
 		}
 		return false;
 	}
@@ -141,5 +165,5 @@ public class Evento implements Serializable {
 	public int hashCode() {
 		return new HashCodeBuilder().append(this.getId()).toHashCode();
 	}
-	
+
 }

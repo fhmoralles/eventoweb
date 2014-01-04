@@ -4,13 +4,15 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 import br.com.eventoweb.domain.evento.Evento;
 import br.com.libutils.jpa.Repository;
 
 @Local
 public interface EventoRepository extends Repository<Evento> {
 
-	List<Evento> eventosParticipante(Participante p);
+	List<Evento> eventosCadastro(Cadastro c);
+	
+	List<Evento> eventosPorNome(String nome);
 	
 }

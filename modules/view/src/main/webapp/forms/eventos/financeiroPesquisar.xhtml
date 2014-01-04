@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.financeiros']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<web:searchOptionsPanel id="searchFinanceiro"
+			backingBean="#{financeiroUI}" showOnly="true">
+
+			<ui:define name="searchContent">
+
+				<h:panelGrid columns="2">
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 120px; text-align: right;">
+							<h:outputText id="labelEvento"
+								value="#{messages['label.evento']}:" style="font-size: 14px;" />
+						</div>
+					</h:panelGroup>
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 360px; text-align: left;">
+							<h:outputText id="inputEvento"
+								value="#{financeiroUI.filter.evento.nome}"
+								style="font-size: 14px; font-weight: bold;" />
+						</div>
+					</h:panelGroup>
+
+				</h:panelGrid>
+
+			</ui:define>
+
+		</web:searchOptionsPanel>
+
+		<fieldset id="fieldSetFinanceiros"
+			style="display: #{not empty financeiroUI.registrosPrevistos?   'block':   'none'">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.resultados.fieldset']}</legend>
+
+			<p:tabView>
+
+				<p:tab id="tabRealizado" title="Realizados">
+
+					<h:panelGrid columns="2">
+
+						<web:outputTextField id="labelCursoTotalRegistrosRealizados"
+							value="#{messages['label.totalregistrosrealizados']}:"
+							required="false" width="120px" align="right" />
+
+						<h:outputText id="inputTotalRegistrosRealizados"
+							value="#{financeiroUI.totalRegistrosRealizados}" required="true"
+							style="font-weight: bold;" width="360px"
+							styleClass="#{financeiroUI.totalRegistrosRealizados le 0 ? 'registro-financeiro-negativo' : 'registro-financeiro-positivo'}">
+							<f:convertNumber locale="#{localeUI.locale}"
+								pattern="R$ ###,###,##0.00" />
+						</h:outputText>
+
+					</h:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<web:outputTextField id="labelCursoTotalRegistrosProvisao"
+							value="#{messages['label.totalprovisao']}:" required="false"
+							width="120px" align="right" />
+
+						<h:outputText id="inputTotalRegistrosProvisao"
+							value="#{financeiroUI.totalRegistrosProvisao}" required="true"
+							style="font-weight: bold;" width="360px"
+							styleClass="#{financeiroUI.totalRegistrosProvisao le 0 ? 'registro-financeiro-negativo' : 'registro-financeiro-positivo'}">
+							<f:convertNumber locale="#{localeUI.locale}"
+								pattern="R$ ###,###,##0.00" />
+						</h:outputText>
+
+					</h:panelGrid>
+
+					<web:dataTable id="dataTableRealizados"
+						value="#{financeiroUI.registrosRealizados}"
+						styleClass="dataTable-1"
+						rowStyleClass="#{dataTableItem.valorFinanceiro lt 0 ? 'registro-financeiro-negativo' : 'registro-financeiro-positivo'}">
+
+						<ui:define name="columns">
+
+							<web:column id="dataTableRealizadosOptionsCol" align="center"
+								width="90px" title="#{messages['global.options.title']}">
+
+								<h:panelGroup style="white-space: nowrap">
+
+									<web:commandButton id="dataTableRealizadoscbtnDelC"
+										value="#{null}"
+										icon="#{messages['global.operations.delete.icon']}"
+										title="#{messages['global.operations.delete']}"
+										immediate="true" oncomplete="deleteDialog.show()"
+										rendered="#{financeiroUI.financeiroDeletar(dataTableItem)}"
+										process="@this" backingBean="#{backingBean}"
+										action="prepareDelete" style="margin-right: 5px;"
+										update="@form" />
+
+									<f:setPropertyActionListener value="#{dataTableItem}"
+										target="#{financeiroUI.bean}" />
+
+									</web:commandButton>
+
+								</h:panelGroup>
+
+							</web:column>
+
+							<web:column id="cursosColumnNomeRealizado" align="center"
+								title="#{messages['label.participante']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.participante.cadastro.razaoSocial}" />
+							</web:column>
+
+							<web:column id="cursosColumnDescricaoRealizado" align="center"
+								title="#{messages['label.descricao']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.descricao}" />
+							</web:column>
+
+							<web:column id="palestrasColumnValorRealizado" align="center"
+								title="#{messages['label.valorrealizado']}" width="150px">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.valorFinanceiro}">
+									<f:convertNumber locale="#{localeUI.locale}"
+										pattern="R$ ###,###,##0.00" />
+								</h:outputText>
+							</web:column>
+
+							<web:column id="cursosColumnDataRealizado" align="center"
+								title="#{messages['label.datarealizado']}" width="150px">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.dataRealizado}">
+
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+										locale="#{localeUI.locale}" timeZone="#{timeZoneUI.timeZone}" />
+
+								</h:outputText>
+							</web:column>
+
+						</ui:define>
+
+					</web:dataTable>
+
+				</p:tab>
+
+				<p:tab title="Previstos">
+
+					<h:panelGrid columns="2">
+
+						<web:outputTextField id="labelCursoTotalRegistrosPrevistos"
+							value="#{messages['label.totalregistrosprevistos']}:"
+							required="false" width="120px" align="right" />
+
+						<h:outputText id="inputCursoTotalRegistrosPrevistos"
+							value="#{financeiroUI.totalRegistrosPrevistos}" required="true"
+							style="font-weight: bold;" width="360px"
+							styleClass="#{financeiroUI.totalRegistrosPrevistos le 0 ? 'registro-financeiro-negativo' : 'registro-financeiro-positivo'}">
+							<f:convertNumber locale="#{localeUI.locale}"
+								pattern="R$ ###,###,##0.00" />
+						</h:outputText>
+
+					</h:panelGrid>
+
+					<web:dataTable id="dataTablePrevistos"
+						value="#{financeiroUI.registrosPrevistos}"
+						styleClass="dataTable-1"
+						rowStyleClass="#{dataTableItem.valorFinanceiro lt 0 ? 'registro-financeiro-negativo' : 'registro-financeiro-positivo'}">
+
+						<ui:define name="columns">
+
+							<web:column id="dataTablePrevistosOptionsCol" align="center"
+								width="90px" title="#{messages['global.options.title']}">
+
+								<h:panelGroup style="white-space: nowrap">
+
+									<web:commandButton id="dataTablePrevistoscbtnIncC"
+										value="#{null}"
+										icon="#{messages['global.operations.save.icon']}"
+										title="#{messages['label.realizar']}" immediate="true"
+										oncomplete="realizarDialog.show()"
+										rendered="#{financeiroUI.financeiroRealizar(dataTableItem)}"
+										process="@this" backingBean="#{backingBean}"
+										action="prepareDelete" style="margin-right: 5px;"
+										update="@form" />
+
+									<f:setPropertyActionListener value="#{dataTableItem}"
+										target="#{financeiroUI.bean}" />
+
+									</web:commandButton>
+
+								</h:panelGroup>
+
+							</web:column>
+
+							<web:column id="cursosColumnNome" align="center"
+								title="#{messages['label.participante']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.participante.cadastro.razaoSocial}" />
+							</web:column>
+
+							<web:column id="cursosColumnDescricao" align="center"
+								title="#{messages['label.descricao']}">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.descricao}" />
+							</web:column>
+
+							<web:column id="palestrasColumnValorFinanceiro" align="center"
+								title="#{messages['label.valorprevisto']}" width="150px">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.valorFinanceiro}">
+									<f:convertNumber locale="#{localeUI.locale}"
+										pattern="R$ ###,###,##0.00" />
+								</h:outputText>
+							</web:column>
+
+							<web:column id="cursosColumnData" align="center"
+								title="#{messages['label.dataprevisto']}" width="150px">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.dataPrevisto}">
+
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+										locale="#{localeUI.locale}" timeZone="#{timeZoneUI.timeZone}" />
+
+								</h:outputText>
+							</web:column>
+
+						</ui:define>
+
+					</web:dataTable>
+
+				</p:tab>
+
+			</p:tabView>
+
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

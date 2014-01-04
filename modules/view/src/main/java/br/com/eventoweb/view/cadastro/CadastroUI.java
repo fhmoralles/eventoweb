@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jboss.seam.security.annotations.LoggedIn;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 import br.com.eventoweb.domain.parametros.Usuario;
 import br.com.eventoweb.domain.types.Estado;
 import br.com.eventoweb.domain.types.TipoDocumento;
@@ -30,7 +30,7 @@ import br.com.webutils.ui.AbstractCRUD;
 @Named
 @SessionScoped
 @LoggedIn
-public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
+public class CadastroUI extends AbstractCRUD<Cadastro, ParticipanteFilter> {
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 	}
 
 	@Override
-	protected void deleteImpl(Participante bean) throws Exception {
+	protected void deleteImpl(Cadastro bean) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -134,7 +134,7 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 	}
 
 	@Override
-	protected boolean isValidBean(Participante bean) {
+	protected boolean isValidBean(Cadastro bean) {
 
 		boolean valido = true;
 
@@ -201,12 +201,12 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 	}
 
 	@Override
-	protected Participante newInstance() {
-		return new Participante();
+	protected Cadastro newInstance() {
+		return new Cadastro();
 	}
 
 	@Override
-	protected void saveImpl(Participante bean) throws Exception {
+	protected void saveImpl(Cadastro bean) throws Exception {
 		
 		MD5Digest md5Digest = MD5Digest.getInstance();
 		
@@ -224,7 +224,7 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 		usuario.setSenha(md5Digest.generateDigest(this.getSenha()));
 		usuario.setAtivo(false);
 		usuario.setOrganizador(false);
-		usuario.setParticipante(bean);
+		usuario.setCadastro(bean);
 		usuario.setDataCadastro(dataCadastro.getTime());
 		usuario.setDataValidade(dataValidade.getTime());
 		
@@ -257,7 +257,7 @@ public class CadastroUI extends AbstractCRUD<Participante, ParticipanteFilter> {
 	}
 
 	@Override
-	protected List<Participante> searchImpl(ParticipanteFilter filter) {
+	protected List<Cadastro> searchImpl(ParticipanteFilter filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.locais']}"
+				action="#{localUI.prepareSearch}" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.locais.cadastrar']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetCampos" style="padding: 10px;">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.cadastrar.fieldset']}</legend>
+
+			<h:panelGrid columns="4">
+
+				<web:outputTextField id="labelLocal"
+					value="#{messages['label.patrocinador']}:" required="true"
+					width="120px" align="right" />
+
+				<p:commandButton id="participanteSearch" icon="ui-icon-search"
+					process="@form" update="_searchParticipanteDialogForm"
+					actionListener="#{participanteUI.reset}"
+					oncomplete="searchParticipanteDialog.show()" />
+
+				<p:outputPanel id="outputLocalNome" autoUpdate="true">
+
+					<p:inputText id="participanteNomeText"
+						value="#{localUI.bean.participante.cadastro.razaoSocial}"
+						required="false" style="width: 325px;" readonly="true" />
+
+					<p:message for="participanteNomeText"
+						id="participanteNomeText_message" display="text" redisplay="true" />
+
+				</p:outputPanel>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelLocalValor"
+					value="#{messages['label.valorlocacao']}:" required="true"
+					width="120px" align="right" />
+
+				<p:inputText id="valorLocalText"
+					value="#{localUI.bean.valorLocacao}" required="false"
+					style="width: 100px; text-align: right;"
+					onkeyup="inputCurrency_corrigeValor(this,'#{localeUI.currencySymbol}','100')">
+
+					<f:convertNumber for="valorLocalText" type="currency"
+						locale="#{localeUI.locale}" />
+
+				</p:inputText>
+
+				<p:message for="valorLocalText" id="valorLocalText_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPrincial"
+					value="#{messages['label.principal']}:" required="true"
+					width="120px" align="right" />
+
+				<p:selectBooleanCheckbox id="valorPrincipal"
+					value="#{localUI.bean.principal}" required="false" />
+
+				<p:message for="valorPrincipal" id="valorPrincipal_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetLocalOpcoes" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.opcoes.fieldset']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnIncluirLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnIncluir" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnIncluir"
+						rendered="#{not localUI.isViewing()}"
+						value="#{(localUI.isInserting()) ? messages['global.msg.incluir'] : messages['global.msg.atualizar']}"
+						update="@form" action="#{localUI.save}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}" process="@form"
+						style="margin-right: 5px;" />
+
+					<p:commandButton id="btnReset"
+						rendered="#{not localUI.isViewing()}"
+						value="#{messages['global.msg.reset']}" update="@form"
+						icon="#{messages['global.operations.reset.icon']}" process="@this"
+						style="margin-right: 5px;" immediate="true" />
+
+					<p:commandButton id="btnVoltar"
+						value="#{messages['global.msg.voltar']}" update="@form"
+						action="#{localUI.prepareSearch}" ajax="true"
+						icon="#{messages['global.operations.back.icon']}" process="@this"
+						style="margin-right: 5px;" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+	<ui:define name="dialogs">
+
+		<p:dialog id="_searchParticipanteDialog"
+			header="#{messages['search.local.msg']}"
+			widgetVar="searchParticipanteDialog" resizable="false" modal="true">
+
+			<h:form id="searchParticipanteDialogForm">
+
+				<fieldset id="fieldSearchParticipante" style="padding: 10px;">
+
+					<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.filtro.fieldset']}</legend>
+
+					<!-- Bloco de Entidade -->
+					<h:panelGrid columns="2">
+
+						<web:outputTextField id="searchParticipanteNomeLabel"
+							value="#{messages['label.nome']}:" required="false" width="120px"
+							align="right" />
+
+						<web:fieldInputText id="fieldTextParticipanteSearchNome"
+							value="#{participanteUI.filter.nome}" required="true"
+							width="200px" />
+
+					</h:panelGrid>
+					<!-- ************ -->
+
+					<!-- Botões -->
+					<h:panelGrid columns="2">
+
+						<web:outputTextField id="btnParticipanteSearchLabel" value=".:"
+							required="false" width="120px" align="right" />
+
+						<p:commandButton id="btnParticipanteSearch"
+							value="#{messages['global.msg.search']}"
+							update="particpantesDataTable"
+							process="searchParticipanteDialogForm"
+							actionListener="#{participanteUI.search}" />
+
+					</h:panelGrid>
+					<!-- ************** -->
+
+				</fieldset>
+
+				<fieldset id="fieldResultadoParticipante"
+					style="padding: 10px; height: 300px;">
+
+					<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.result.fieldset']}</legend>
+
+					<web:dataTable id="particpantes" value="#{participanteUI.rows}"
+						paginator="true" rows="7" style="width: 900px;" scrollable="false"
+						dynamic="false">
+
+						<ui:define name="columns">
+
+							<web:column id="columnBotaoExcluir" align="center" width="100px">
+
+								<p:commandButton id="selectBtn" process="@this" immediate="true"
+									oncomplete="searchParticipanteDialog.hide();"
+									title="#{messages['global.msg.select']}" icon="ui-icon-check">
+
+									<f:setPropertyActionListener value="#{dataTableItem}"
+										target="#{localUI.bean.participante.cadastro}" />
+
+								</p:commandButton>
+
+							</web:column>
+
+							<web:column id="columnParticipanteNome"
+								title="#{messages['label.razaosocial']}" align="center">
+								<h:outputText style="text-align: center; display: block;"
+									value="#{dataTableItem.razaoSocial}" />
+							</web:column>
+
+						</ui:define>
+
+					</web:dataTable>
+
+				</fieldset>
+
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+
+
+</ui:composition>

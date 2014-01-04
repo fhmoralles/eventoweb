@@ -126,7 +126,6 @@ ul h4 {
 	background: #0173B2 url(images/img03.jpg) top left no-repeat;
 	padding: 45px;
 	color: #FFFFFF;
-	width: 888px;
 	border: solid 1px #7E7E7E;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -284,7 +283,6 @@ ul h4 {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 } */
-
 #page {
 	padding: 15px 15px 15px 15px;
 	position: relative;
@@ -321,7 +319,6 @@ ul h4 {
 	margin: 0;
 	background: #0173B2 url(images/img03.jpg) top left no-repeat;
 	border: solid 1px #7E7E7E;
-	width: 888px;
 	padding: 45px 45px 0 45px;
 	color: #DCDCDC;
 	border-bottom-left-radius: 5px;
@@ -420,8 +417,7 @@ ul h4 {
 	background: #6E6E6E;
 }
 
-ul.style3
-{
+ul.style3 {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -429,8 +425,7 @@ ul.style3
 	color: #6c6c6c
 }
 
-ul.style3 li
-{
+ul.style3 li {
 	overflow: hidden;
 	display: block;
 	/*padding: 0.8em 0em 0em 0em;
@@ -438,31 +433,26 @@ ul.style3 li
 	border-top: 1px solid #D1CFCE;
 }
 
-ul.style3 li:first-child
-{
+ul.style3 li:first-child {
 	padding-top: 0;
 	border-top: none;
 }
 
-ul.style3 p
-{
+ul.style3 p {
 	margin: 0;
 }
 
-ul.style3 a
-{
+ul.style3 a {
 	display: block;
 	text-decoration: none;
 	color: #2D2D2D;
 }
 
-ul.style3 a:hover
-{
+ul.style3 a:hover {
 	text-decoration: underline;
 }
 
-ul.style3 h3
-{
+ul.style3 h3 {
 	padding: 15px 0em 5px 0em;
 	text-transform: uppercase;
 	font-size: 1.1em;
@@ -470,14 +460,12 @@ ul.style3 h3
 	color: #454445;
 }
 
-ul.style3 .first
-{
+ul.style3 .first {
 	padding-top: 0;
 	background: none;
 }
 
-ul.style3 .date
-{
+ul.style3 .date {
 	float: left;
 	position: relative;
 	width: 50px;
@@ -485,19 +473,18 @@ ul.style3 .date
 	margin: 10px 1.5em 0em 0em;
 	padding: 10px 0em 0em 0em;
 	background: #0173B2;
-	box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.1);
+	box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.1);
 	line-height: normal;
 	text-align: center;
 	text-transform: uppercase;
-	text-shadow: 0px 1px 0px rgba(0,0,0,.2);
+	text-shadow: 0px 1px 0px rgba(0, 0, 0, .2);
 	font-size: 0.8em;
 	font-weight: 400;
 	color: #FFF;
 	font-size: 12px
 }
 
-ul.style3 .date:after
-{
+ul.style3 .date:after {
 	content: '';
 	display: block;
 	position: absolute;
@@ -508,8 +495,7 @@ ul.style3 .date:after
 	border-radius: 6px;
 }
 
-ul.style3 .date b
-{
+ul.style3 .date b {
 	margin: 0;
 	padding: 0;
 	display: block;
@@ -518,19 +504,17 @@ ul.style3 .date b
 	color: #FFFFFF;
 }
 
-ul.style3 .date a
-{
+ul.style3 .date a {
 	color: #FFFFFF !important;
 }
 
-ul.style3 .date a:hover
-{
+ul.style3 .date a:hover {
 	text-decoration: none;
-	}
+}
 
 #wrapper {
 	position: relative;
-	width: 980px;
+	width: 1225px;
 	margin: 5px auto 0 auto;
 	background: #FFFFFF;
 	border-radius: 6px;
@@ -560,7 +544,6 @@ ul.style3 .date a:hover
 /* ***************** */
 
 /* menu */
-
 div#menu .ui-menu {
 	padding: 0 !important;
 	background: #209D9D !important;
@@ -575,9 +558,7 @@ div#menu .ui-widget-content a {
 	font-family: Tahoma, serif;
 }
 
-div#menu .ui-icon,
-div#menu .ui-state-hover,
-div#menu .ui-icon {
+div#menu .ui-icon,div#menu .ui-state-hover,div#menu .ui-icon {
 	background-image: url("#{resource['images/ui-icons_fff_256x240.png']}")
 		!important;
 }
@@ -592,15 +573,13 @@ div#menu .ui-state-hover,div#menu .ui-state-focus,div#menu .ui-widget-content .u
 	box-shadow: none !important;
 }
 
-div#menu .ui-menu, div#menu .ui-menu-child {
+div#menu .ui-menu,div#menu .ui-menu-child {
 	background: #209D9D !important;
 }
 /* ********************8 */
 
 /* Botão */
-button.ui-state-default, 
-button.ui-state-hover,
-button.ui-state-focus {
+button.ui-state-default,button.ui-state-hover,button.ui-state-focus {
 	background: #1C7575
 		url("#{resource['images/ui-bg_highlight-hard_20_359a92_1x100.png']}")
 		50% 50% repeat-x !important;
@@ -617,8 +596,7 @@ button.ui-state-default {
 	font-family: Tahoma, serif;
 }
 
-button.ui-state-hover,
-button.ui-state-focus {
+button.ui-state-hover,button.ui-state-focus {
 	border: 1px solid #1C7575 !important;
 	font-family: Tahoma, serif;
 }
@@ -652,8 +630,7 @@ button.ui-state-focus {
 	font-family: Tahoma, serif;
 }
 
-label.ui-selectonemenu-label, 
-label.ui-selectonemenu-label {
+label.ui-selectonemenu-label,label.ui-selectonemenu-label {
 	line-height: 1.5em;
 	height: 16px;
 	margin-bottom: 0 !important;
@@ -697,7 +674,7 @@ label.ui-selectonemenu-label {
 	font-family: Tahoma, serif;
 }
 
- .ui-selectlistbox-item.ui-state-active {
+.ui-selectlistbox-item.ui-state-active {
 	background: GrayText;
 	color: HighlightText;
 	text-shadow: none;
@@ -737,8 +714,7 @@ label.ui-selectonemenu-label {
 	font-family: Tahoma, serif;
 }
 
-.ui-selectonemenu.ui-state-hover,.ui-selectonemenu.ui-state-focus
-	{
+.ui-selectonemenu.ui-state-hover,.ui-selectonemenu.ui-state-focus {
 	border: 1px solid #777;
 	-moz-box-shadow: inset 0 2px 2px #dfdfdf !important;
 	-webkit-box-shadow: inset 0 2px 2px #dfdfdf !important;
@@ -835,7 +811,6 @@ width: 2.0em;
 /* **************** */
 
 /* Panel */
-
 div#page .ui-panel .ui-panel-titlebar {
 	background: #209D9D !important;
 	font-family: Tahoma, serif;
@@ -844,11 +819,9 @@ div#page .ui-panel .ui-panel-titlebar {
 	box-shadow: none !important;
 	color: #fff !important;
 	text-shadow: 0px 1px 0px rgba(50, 94, 17, 0.3) !important;
-
 }
 
-div#page .ui-panelgrid td,
-div#page .ui-panelgrid tr {
+div#page .ui-panelgrid td,div#page .ui-panelgrid tr {
 	padding: 0px;
 	border-style: none;
 	border-width: 0px;
@@ -859,16 +832,18 @@ div#page .ui-panelgrid tr {
 }
 
 .ui-breadcrumb {
-    background: none repeat scroll 0 0 transparent !important;
-    border: medium none !important;
+	background: none repeat scroll 0 0 transparent !important;
+	border: medium none !important;
 }
+
 .ui-breadcrumb ul li a {
-    color: #0099CC !important;
-    font-weight: normal !important;
+	color: #0099CC !important;
+	font-weight: normal !important;
 }
+
 .ui-breadcrumb ul li a:hover {
-    color: #FF9900 !important;
-    text-decoration: underline !important;
+	color: #FF9900 !important;
+	text-decoration: underline !important;
 }
 
 .ui-breadcrumb ul li .ui-menuitem-link {
@@ -881,4 +856,12 @@ div#page .ui-panelgrid tr {
 
 .ui-tabs .ui-tabs-panel {
 	padding: 1em 0.4em;
+}
+
+.registro-financeiro-negativo {
+	color: red;
+}
+
+.registro-financeiro-positivo {
+	color: blue;
 }

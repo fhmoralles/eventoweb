@@ -37,9 +37,9 @@ public class LoginUI extends AbstractFacesBean {
 			MessageUtil.addGlobalInfoMessage(
 					MessagesConstants.MSG_INFO_LOGIN_SUCESSO,
 					((EventoUser) identity.getUser()).getUsuario()
-							.getParticipante().getRazaoSocial());
+							.getCadastro().getRazaoSocial());
 			
-			meusEventosUI.getFilter().setDescricao("%meuseventos%");
+			meusEventosUI.getFilter().setNome("%meuseventos%");
 			return meusEventosUI.prepareSearch();
 		}
 

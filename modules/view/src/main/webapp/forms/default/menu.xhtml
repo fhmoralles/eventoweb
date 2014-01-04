@@ -27,7 +27,6 @@
 				<p:menuitem url="/index.xhtml" icon="ui-icon ui-icon-home"
 					id="menuHome" />
 
-
 				<p:submenu label="#{messages['menu.perfil']}" id="submenuPerfil"
 					rendered="#{identity.user.menuPerfil}">
 
@@ -38,7 +37,7 @@
 
 					<p:menuitem id="menuItemMeusEventos"
 						value="#{messages['menu.perfil.eventos']}"
-						action="/main.xhtml" ajax="true"
+						action="#{meusEventosUI.prepareSearch}" ajax="true"
 						rendered="#{identity.user.subMenuEventos}" />
 
 				</p:submenu>
@@ -68,7 +67,7 @@
 
 					<p:separator />
 
-a				</p:submenu>
+				</p:submenu>
 
 			</p:menubar>
 

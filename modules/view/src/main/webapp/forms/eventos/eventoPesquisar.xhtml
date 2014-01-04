@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem
+				value="#{messages['navegacao.pesquisarevento']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<web:searchOptionsPanel id="searchEvento"
+			backingBean="#{eventoUI}">
+
+			<ui:define name="searchContent">
+				
+				<h:panelGrid columns="3">
+				
+					<web:outputTextField id="labelNome"
+						value="#{messages['label.nome']}:" required="true"
+						width="120px" align="right" />
+	
+					<web:fieldInputText id="inputNome" required="true" width="360px"
+						value="#{eventoUI.filter.nome}" />
+				
+					<p:message for="inputNomeText" id="inputNome_message"
+						display="text" redisplay="true" />
+				
+				</h:panelGrid>
+				
+			</ui:define>
+
+		</web:searchOptionsPanel>
+
+		<web:searchResultDataTable id="gridEvento"
+			backingBean="#{eventoUI}" style="margin: 5px;">
+
+			<web:column id="columnPagina" title="#{messages['label.paginaevento']}" width="200px;">
+				<h:outputLink value="#{eventoUI.linkPagina(dataTableItem)}" target="_blank">
+					<h:outputText value="#{messages['label.linkpagina']}" style="text-align: center; display: block;" />
+				</h:outputLink>
+			</web:column>
+
+			<web:column id="columnId" title="#{messages['label.nome']}" width="200px;">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.nome}" />
+			</web:column>
+
+			<web:column id="columnDescricao"
+				title="#{messages['label.descricao']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.descricao}" />
+			</web:column>
+
+			<web:column id="columnData"
+				title="#{messages['label.dataevento']}"  width="200px;">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.dataInicio}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						locale="#{localeUI.locale}" timeZone="#{timezoneUI.timeZone}" />
+				</h:outputText>
+			</web:column>
+
+		</web:searchResultDataTable>
+
+	</ui:define>
+
+</ui:composition>

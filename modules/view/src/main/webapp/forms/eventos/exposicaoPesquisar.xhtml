@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.exposicoes']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<web:searchOptionsPanel id="searchExposicao"
+			backingBean="#{exposicaoUI}" showOnly="true">
+
+			<ui:define name="searchContent">
+
+				<h:panelGrid columns="2">
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 120px; text-align: right;">
+							<h:outputText id="labelEvento"
+								value="#{messages['label.evento']}:" style="font-size: 14px;" />
+						</div>
+					</h:panelGroup>
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 360px; text-align: left;">
+							<h:outputText id="inputEvento"
+								value="#{exposicaoUI.filter.evento.nome}"
+								style="font-size: 14px; font-weight: bold;" />
+						</div>
+					</h:panelGroup>
+
+				</h:panelGrid>
+
+			</ui:define>
+
+		</web:searchOptionsPanel>
+
+		<web:searchResultDataTable id="gridExposicoes"
+			backingBean="#{exposicaoUI}" style="margin: 5px;">
+
+			<web:column id="exposicoesColumnDescricao" align="center"
+				title="#{messages['label.exposicao']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.descricao}" />
+			</web:column>
+
+		</web:searchResultDataTable>
+
+	</ui:define>
+
+</ui:composition>

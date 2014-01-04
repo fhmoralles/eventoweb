@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><h:outputText value="#{eventoPaginaUI.evento.nome}"
+			rendered="#{!(eventoPaginaUI.evento == null)}" /> <h:outputText
+			value="#{messages['label.eventonaoencontrado']}"
+			rendered="#{eventoPaginaUI.evento == null}" /></title>
+
+	<f:facet name="last">
+		<h:outputStylesheet name="/css/pagina.css" />
+		<h:outputStylesheet name="/css/tipTip.css" />
+	</f:facet>
+
+</h:head>
+
+<h:body>
+
+	<f:view contentType="text/html">
+		<p:outputPanel id="idEventoEncontrado"
+			rendered="#{eventoPaginaUI.evento == null}">
+			<h:outputText value="#{messages['label.eventonaoencontrado']}" />
+		</p:outputPanel>
+
+		<p:outputPanel id="idEventoNaoEncontrado"
+			rendered="#{eventoPaginaUI.evento != null}">
+			<div id="fixed-menu" style="display: block;">
+				<table align="center" width="868" border="0" cellspacing="0"
+					cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="79" style="text-align: left;"><a
+								class="menu-link" onclick="goto(&#39;home&#39;); return false;">INICIO</a></td>
+							<td width="167" style="text-align: left;"><a
+								class="menu-link"
+								onclick="goto(&#39;sobre-o-evento&#39;); return false;">SOBRE
+									O EVENTO</a></td>
+							<td width="143" style="text-align: left;"><a
+								class="menu-link"
+								onclick="goto(&#39;palestrantes&#39;); return false;">PALESTRANTES</a></td>
+							<td width="147" style="text-align: left;"><a
+								class="menu-link"
+								onclick="goto(&#39;cronograma&#39;); return false;">PROGRAMAÇÃO</a></td>
+							<td width="119" style="text-align: left;"><a
+								class="menu-link"
+								onclick="goto(&#39;downloads&#39;); return false;">DOWNLOADS</a></td>
+							<td width="119" style="text-align: left;"><a
+								class="menu-link"
+								onclick="goto(&#39;downloads&#39;); return false;">CONTATO</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<table id="overlay" width="100%" border="0" cellspacing="0"
+				cellpadding="0">
+				<tbody>
+					<tr>
+						<td id="home">
+							<table align="center" width="731" border="0" cellspacing="0"
+								cellpadding="0">
+								<tbody>
+									<tr>
+										<td width="79" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;home&#39;); return false;">INICIO</a></td>
+										<td width="167" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;sobre-o-evento&#39;); return false;">SOBRE
+												O EVENTO</a></td>
+										<td width="143" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;palestrantes&#39;); return false;">PALESTRANTES</a></td>
+										<td width="147" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;cronograma&#39;); return false;">PROGRAMAÇÃO</a></td>
+										<td width="119" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;downloads&#39;); return false;">DOWNLOADS</a></td>
+										<td width="119" style="text-align: left;"><a
+											class="menu-link"
+											onclick="goto(&#39;downloads&#39;); return false;">CONTATO</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-top: 160px;"><img
+							src="./Googon-Site_files/logo.png" width="462" height="155" /></td>
+					</tr>
+					<tr>
+						<td
+							style="color: #A5A1A7; font-family: AvenirLtStdLight, Arial; font-size: 25px;">
+							<br /> <h:outputText value="#{eventoPaginaUI.evento.descricao}" />
+						</td>
+					</tr>
+					<tr>
+						<td
+							style="color: #5f5f5f; font-size: 13px; font-family: AvenirLTStdBlack, Arial;">
+							<br /> <h:outputText value="#{eventoPaginaUI.localizacao}" />
+						</td>
+					</tr>
+					<tr>
+						<td
+							style="color: #c7a246; font-size: 13px; font-family: AvenirLTStdBlack, Arial;">
+							<br /> <h:outputLink value="#{eventoPaginaUI.linkInscricao}"
+								target="_blank" styleClass="menu-link">
+								<h:outputText value="#{messages['label.linkinscricao']}" />
+							</h:outputLink>
+						</td>
+					</tr>
+					<tr>
+						<td
+							style="color: #c7a246; font-size: 13px; font-family: AvenirLTStdBlack, Arial; padding-bottom: 80px;">
+							<br /> <h:outputLink value="#{eventoPaginaUI.linkSubmissao}"
+								target="_blank" styleClass="menu-link">
+								<h:outputText value="#{messages['label.linksubmissao']}" />
+							</h:outputLink>
+						</td>
+					</tr>
+		            <tr>
+		            	<td id="sobre-o-evento" class="sobre">
+		                	<table width="920" align="center" border="0" cellspacing="0" cellpadding="0">
+		                    	<tbody><tr>
+		                        	<td style="text-align:left; color:#3D71B7; font-size:40px; font-family:AvenirLTStdBlack, Arial; padding-top:90px;">Sobre o Evento</td>
+		                        </tr>
+		                        <tr>
+		                        	<td style="text-align:justify; letter-spacing:normal; color:#656868; font-size:16px; font-family:AvenirLTStdBlack, Arial; padding-top:30px;">
+		                        		<br /> <h:outputText value="#{eventoPaginaUI.evento.sobre}" />
+		                        	</td>
+		                        </tr>
+		                        <tr>
+		                        	<td style="padding-top:70px; padding-bottom:100px;">
+		                        		<img src="./Googon-Site_files/logo-pequena.png" width="88" height="75" />
+		                        	</td>
+		                        </tr>
+		                    </tbody></table>
+		                </td>
+		            </tr>
+            		<!-- Panel de Palestrantes -->
+            		<h:panelGrid rendered="#{not empty eventoPaginaUI.palestrantes()}">
+	            		<tr>
+			            	<td id="palestrantes" class="palestrantes">
+			                	<table width="920" align="center" border="0" cellspacing="0" cellpadding="0">
+			                    	<tbody>
+				                    	<tr>
+				                        	<td style="text-align:left; color:#E9EAE6; font-size:40px; font-family:AvenirLTStdBlack, Arial; padding-top:90px;">Palestrantes</td>
+				                        </tr>
+				                        
+										<ui:repeat value="#{eventoPaginaUI.palestrantes()}" var="repeat">
+					                        <tr>
+					                        	<td style="padding-top:25px; padding-bottom:45px; border-top:solid #6FB364 3px;">
+					                            	<table align="center" border="0" cellspacing="0" cellpadding="0">
+					                                	<tbody>
+					                                		<tr>
+						                                    	<td style="padding-right:40px;">
+						                                        	<table border="0" cellspacing="0" cellpadding="0">
+						                                            	<tbody><tr>
+						                                                	<td><img src="./Googon-Site_files/danielle-tavares.jpg" /></td>
+						                                                </tr>
+						                                                <tr>
+						                                                	<td style="color:#ffffff; font-size:21px; font-family:AvenirLTStdBlack, Arial; padding-top:15px;">Danielle Tavares</td>
+						                                              	</tr>
+						                                            </tbody></table>
+						                                        </td>
+						                                        <td>
+						                                        	<table border="0" cellspacing="0" cellpadding="0">
+						                                            	<tbody>
+						                                            		<tr>
+							                                                	<td style="text-align:left; color:#ffffff; font-size:15px; font-family:AvenirLTStdMedium, Arial; letter-spacing:normal;">
+							                                                    	<p>Dez anos de experiência, em marketing B2B e B2C, adquiridos em grandes empresas  do mercado e agências de propaganda.</p>
+																					<p>Instrutora Goobec Brasil - Profissional certificada pelo Google (GCP -Google Certification ) – 2009/2011. Diversos cursos  AdWords já ministrados pela Goobec do Brasil, tendo como principais: Google AdWords Fundamentals, Google AdWords Marathon, Google AdWords Certification e Google Expert. Mais de 2.000 pessoas treinadas, contratos de cursos de atualização com empresas do Mercado Digital como: Iprospect (Grupo Isobar), Iphone Fix, Rumbo.com e 7 Pontos Agência Digital (Brasília).</p>
+							                                               		</td>
+							                                                </tr>
+							                                                <tr>
+							                                                	<td style="text-align:left; color:#304B2C; font-size:15px; font-family:AvenirLTStdBlack, Arial; padding-top:20px;">Palestra: Adwords</td>
+							                                                </tr>
+							                                            </tbody>
+							                                        </table>
+						                                        </td>
+					                                    	</tr>
+					                                	</tbody>
+					                                </table>
+					                            </td>
+					                        </tr>
+					                	</ui:repeat>
+					                	
+				                	</tbody>
+								</table>
+							</td>		            					
+						</tr>
+					</h:panelGrid>
+				</tbody>
+			</table>
+		</p:outputPanel>
+
+	</f:view>
+
+</h:body>
+</html>

@@ -11,18 +11,18 @@ public class EventoFilter implements Filter {
 	 */
 	private static final long serialVersionUID = 6178943602875397379L;
 	
-	private String descricao;
+	private String nome;
 	
 	@Override
 	public void reset() {
-		this.setDescricao(StringUtils.EMPTY);
+		this.setNome(StringUtils.EMPTY);
 	}
 
 	@Override
 	public boolean isValid() {
 		
-		if(this.getDescricao() != null) {
-			return !(this.getDescricao().equals(StringUtils.EMPTY));
+		if(this.getNome() != null) {
+			return !(this.getNome().equals(StringUtils.EMPTY));
 		} else {
 			return true;
 		}
@@ -33,13 +33,12 @@ public class EventoFilter implements Filter {
 		return null;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	
 }

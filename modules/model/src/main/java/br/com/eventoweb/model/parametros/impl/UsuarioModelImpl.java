@@ -7,10 +7,10 @@ import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 import br.com.eventoweb.domain.parametros.Usuario;
 import br.com.eventoweb.model.parametros.spec.UsuarioModel;
-import br.com.eventoweb.repository.cadastro.spec.ParticipanteRepository;
+import br.com.eventoweb.repository.cadastro.spec.CadastroRepository;
 import br.com.eventoweb.repository.parametros.spec.UsuarioRepository;
 import br.com.libutils.email.EmailHelper;
 import br.com.libutils.email.EmailHelper.TipoEmail;
@@ -26,13 +26,13 @@ public class UsuarioModelImpl implements UsuarioModel {
 	private UsuarioRepository usuarioRepository;
 
 	@EJB
-	private ParticipanteRepository participanteRepository;
+	private CadastroRepository participanteRepository;
 	
 	@Resource
 	private SessionContext sessionContext;
 
 	@Override
-	public void create(Usuario c) {
+	public void create(Usuario u) {
 		// TODO Auto-generated method stub
 
 	}
@@ -43,18 +43,18 @@ public class UsuarioModelImpl implements UsuarioModel {
 	}
 
 	@Override
-	public Usuario update(Usuario c) throws Exception {
+	public Usuario update(Usuario u) throws Exception {
 
-		Participante p = null;
+		Cadastro c = null;
 
 		/* Persistema participante */
-		p = participanteRepository.update(c.getParticipante());
-		c.setParticipante(p);
+		c = participanteRepository.update(u.getCadastro());
+		u.setCadastro(c);
 
 		/* Persiste usuário */
-		c = usuarioRepository.update(c);
+		u = usuarioRepository.update(u);
 
-		return c;
+		return u;
 	}
 
 	@Override
@@ -101,13 +101,13 @@ public class UsuarioModelImpl implements UsuarioModel {
 	}
 	
 	@Override
-	public void delete(Usuario c) {
+	public void delete(Usuario u) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void refresh(Usuario c) {
+	public void refresh(Usuario u) {
 		// TODO Auto-generated method stub
 
 	}
@@ -138,7 +138,6 @@ public class UsuarioModelImpl implements UsuarioModel {
 
 	@Override
 	public void enviarEmail(String email, String assunto, String mensagem) {
-		LOG.info("Enviado email: " + mensagem);
 		EmailHelper.enviarEmail(email, assunto, mensagem, TipoEmail.HTML, null);
 	}
 

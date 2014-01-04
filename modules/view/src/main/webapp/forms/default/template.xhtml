@@ -29,7 +29,7 @@
 <h:body>
 
 	<f:view contentType="text/html">
-
+		
 		<div id="wrapper">
 
 			<ui:include src="header.xhtml" />
@@ -42,20 +42,20 @@
 
 				<div id="contentForm">
 
-					<h:form id="contentEventoForm">
+					<p:ajaxStatus onstart="statusDialog.show()"
+						oncomplete="statusDialog.hide()" />
 
-						<p:ajaxStatus onstart="statusDialog.show()"
-							oncomplete="statusDialog.hide()" />
-
-						<p:dialog id="statusDialogId" widgetVar="statusDialog"
-							modal="true" closable="false" draggable="false"
-							header="Aguarde..." style="width: 200px;">
-							
-							<p:graphicImage value="/images/ajaxloadingbar.gif" />
+					<p:dialog id="statusDialogId" widgetVar="statusDialog"
+						modal="true" closable="false" draggable="false"
+						header="Aguarde..." style="width: 200px;">
 						
-						</p:dialog>
+						<p:graphicImage value="/images/ajaxloadingbar.gif" />
+					
+					</p:dialog>
 
-						<p:messages id="msg" globalOnly="true" />
+					<p:messages id="msg" autoUpdate="true" globalOnly="true" />
+
+					<h:form id="contentEventoForm" enctype="multipart/form-data">
 
 						<ui:insert name="contentEvento" />
 
@@ -77,7 +77,7 @@
 		</div>
 
 		<ui:include src="footer.xhtml" />
-
+		
 		<h:panelGroup id="dialogs">
 
 			<ui:insert name="dialogs"></ui:insert>

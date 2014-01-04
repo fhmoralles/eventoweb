@@ -3,16 +3,16 @@ package br.com.eventoweb.repository.evento.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 import br.com.eventoweb.domain.evento.Evento;
+import br.com.eventoweb.domain.evento.Participante;
 import br.com.eventoweb.repository.evento.spec.EventoRepository;
 import br.com.eventoweb.spec.AbstractEventoWebRepository;
 
@@ -26,25 +26,39 @@ public class EventoRepositoryImpl extends
 	}
 
 	@Override
-	public List<Evento> eventosParticipante(Participante p) {
+	public List<Evento> eventosCadastro(Cadastro c) {
 
-		final EntityManager em = getEntityManager();
+		final CriteriaBuilder criteriaBuilder = createCriteriaBuilder();
+		final CriteriaQuery<Evento> criteriaQuery = createCriteriaQuery(criteriaBuilder);
+		final Root<Evento> root = createRoot(criteriaQuery);
+	
+		final Join<Evento, Participante> join = root.join("participantes");
+		
+		criteriaQuery.where(criteriaBuilder.equal(join.get("cadastro"), c));
+		
+		criteriaQuery.select(root).distinct(true);
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("dataInicio")));
+		
+		return this.retrieveByCriteria(criteriaQuery);
+		
+	}
+
+	@Override
+	public List<Evento> eventosPorNome(String nome) {
+
 		final CriteriaBuilder criteriaBuilder = createCriteriaBuilder();
 		final CriteriaQuery<Evento> criteriaQuery = createCriteriaQuery(criteriaBuilder);
 		final Root<Evento> root = createRoot(criteriaQuery);
 		
 		/* Repository -> Apenas pesquias as informações no banco de dados
 		 * Filtro por codigo */
-		final Path<Participante> pathParticipante = root.get("participante");
-		final Predicate predicateParticipante = criteriaBuilder.equal(pathParticipante, p);
-		criteriaQuery.where(predicateParticipante);
+		final Path<String> pathNome = root.get("nome");
+		final Predicate predicateNome = criteriaBuilder.like(pathNome, nome);
+		criteriaQuery.where(predicateNome);
 		
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("dataEvento")));
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("dataInicio")));
 		
-		final TypedQuery<Evento> typedQuery = em.createQuery(criteriaQuery);
-		
-		return typedQuery.getResultList();
-		
+		return this.retrieveByCriteria(criteriaQuery);
 	}
 
 }

@@ -12,11 +12,9 @@
 
 		<web:breadcrumb urlIndex="/index.xhtml">
 
-			<p:menuitem
-				value="#{messages['navegacao.meuseventos']}"
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
 				action="#{meusEventosUI.prepareSearch}" />
-			
-			
+
 			<p:menuitem rendered="#{eventoUI.inserting}"
 				value="#{messages['navegacao.novoevento']}" />
 
@@ -29,63 +27,100 @@
 
 	<ui:define name="contentEvento">
 
-		<fieldset id="fieldsetLogin" style="padding: 10px">
+		<fieldset id="fieldsetEvento" style="padding: 10px">
 
 			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.dados']}</legend>
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
 
 				<web:outputTextField id="labelNome"
-					value="#{messages['label.nome']}:" required="true"
-					width="120px" align="right" />
-
-				<web:fieldInputText id="inputNome"
-					value="#{eventoUI.bean.nome}" required="true" width="360px" />
-
-				<p:message for="inputNomeText" id="labelNome_message"
-					display="text" redisplay="true" />
-
+					value="#{messages['label.nome']}:" required="true" width="120px"
+					align="right" />
+				
+				<web:fieldInputText id="inputNomeCriador"
+					value="#{eventoUI.bean.nome}" required="false" width="1010px"
+					readonly="#{not eventoUI.criador}" />
+	
 			</h:panelGrid>
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="4">
 
 				<web:outputTextField id="labelDescricao"
 					value="#{messages['label.descricao']}:" required="true"
 					width="120px" align="right" />
 
-				<web:fieldTextarea id="inputDescricao"
-					value="#{eventoUI.bean.descricao}" required="true"
-					width="360px" />
+				<web:fieldTextarea id="inputDescricaoCriador"
+					value="#{eventoUI.bean.descricao}" required="false" width="415px"
+					readonly="#{not eventoUI.criador}" />
 
-				<p:message for="inputDescricaoText" id="labelDescricao_message"
-					display="text" redisplay="true" />
+				<web:outputTextField id="labelSobre"
+					value="#{messages['label.sobre']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldTextarea id="inputSobreCriador" value="#{eventoUI.bean.sobre}"
+					required="false" width="460px"
+					readonly="#{not eventoUI.criador}" />
 
 			</h:panelGrid>
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="6" rendered="#{eventoUI.editing and eventoUI.criador}">
 
-				<web:outputTextField id="labelDataEvento"
-					value="#{messages['label.dataevento']}:" required="true"
+				<web:outputTextField id="labelDataInicio"
+					value="#{messages['label.datainico']}:" required="true"
 					width="120px" align="right" />
 
-				<web:fieldCalendar id="inputDataEvento"
-					value="#{eventoUI.bean.dataEvento}" required="true"
-					width="360px" />
+				<web:fieldCalendar id="inputDataInicio"
+					value="#{eventoUI.bean.dataInicio}" required="true" width="360px"
+					 readonly="#{eventoUI.criador}" />
 
-				<p:message for="inputDataEventoText" id="labelDataEvento_message"
-					display="text" redisplay="true" />
+				<web:outputTextField id="labelDataFim"
+					value="#{messages['label.datafim']}:" required="false"
+					width="220px" align="right" />
+
+				<web:fieldCalendar id="inputDataFim"
+					value="#{eventoUI.bean.dataFim}" required="false" width="360px" />
+
+				<web:outputTextField id="labelDataSubmissao"
+					value="#{messages['label.datasubmissao']}:" required="false"
+					width="240px" align="right" />
+
+				<web:fieldCalendar id="inputDataSubmissao"
+					value="#{eventoUI.bean.dataSubmissao}" required="false"
+					width="360px" />
 
 			</h:panelGrid>
 
-			<h:panelGrid columns="2" rendered="#{eventoUI.editing}">
+			<h:panelGrid columns="6" rendered="#{eventoUI.editing and eventoUI.criador}">
+
+				<web:outputTextField id="labelTipoInscricao"
+					value="#{messages['label.tipoinscricao']}:" required="false"
+					width="120px" align="right" />
+
+				<web:fieldSelectOneMenu id="inputTipoInscricao"
+					value="#{eventoUI.bean.tipoInscricao}" required="false"
+					width="180px">
+
+					<web:enumSelectItems value="#{eventoUI.tiposInscricao}" />
+
+				</web:fieldSelectOneMenu>
+
+				<web:outputTextField id="labelPaginaEvento"
+					value="#{messages['label.paginaevento']}:" required="false"
+					width="220px" align="right" />
+
+				<h:outputLink value="#{eventoUI.linkPagina}" target="_blank">
+					<div style="width: 185px;">
+						<h:outputText value="#{messages['label.linkpagina']}" />
+					</div>
+				</h:outputLink>
 
 				<web:outputTextField id="labelCriador"
 					value="#{messages['label.criador']}:" required="false"
-					width="120px" align="right" />
+					width="240px" align="right" />
 
 				<web:outputTextField id="inputCriador"
-					value="#{eventoUI.bean.participante.razaoSocial}" required="false"
-					width="360px" align="left" />
+					value="#{eventoUI.nomeCriador}" required="false" width="180px"
+					align="left" />
 
 			</h:panelGrid>
 
@@ -94,44 +129,190 @@
 		<p:outputPanel rendered="#{eventoUI.editing}">
 
 			<fieldset id="fieldsetOpcoes" style="padding: 10px">
-	
+
 				<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.opcoes']}</legend>
-	
-				<center>
-					
-					<p:commandButton id="organizadoresLnk" action="#{eventoOrganizadorUI.prepareSearch}"
-						ajax="true" value="#{messages['menu.evento.organizador']}"
-						style="font-size: 12px;" update="@form">
-						
+
+				<div style="text-align: center">
+
+					<p:commandButton id="organizadoresLnk"
+						action="#{organizadorUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.organizador']}"
+						style="font-size: 12px; margin-bottom: 5px;" update="@form"
+						rendered="#{eventoUI.permiteOrganizadores}">
+
 						<f:setPropertyActionListener value="#{eventoUI.bean}"
-							target="#{eventoOrganizadorUI.filter.evento}" />
-						
-					</p:commandButton>
-					
-					<p:commandButton id="locaisLnk" action="#{eventoLocalUI.prepareSearch}"
-						ajax="true" value="#{messages['menu.evento.local']}"
-						style="font-size: 12px;">
-						
-						<f:setPropertyActionListener value="#{eventoUI.bean}"
-							target="#{eventoLocalUI.filter.evento}" />
-						
+							target="#{organizadorUI.filter.evento}" />
+
 					</p:commandButton>
 
-					<p:commandButton id="palestrasLnk" action="#{eventoPalestraUI.prepareSearch}"
-						ajax="true" value="#{messages['menu.evento.palestra']}"
-						style="font-size: 12px;">
-						
+					<p:commandButton id="locaisLnk" action="#{localUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.local']}"
+						style="font-size: 12px; margin-bottom: 5px;" 
+						rendered="#{eventoUI.permiteLocais}">
+
 						<f:setPropertyActionListener value="#{eventoUI.bean}"
-							target="#{eventoPalestraUI.filter.evento}" />
-						
+							target="#{localUI.filter.evento}" />
+
 					</p:commandButton>
-					
-				</center>
-				
+
+					<p:commandButton id="exposicoesLnk"
+						action="#{exposicaoUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.exposicao']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteExposicoes}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{exposicaoUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="temasLnk" action="#{temaUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.tema']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteTemas}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{temaUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="palestrasLnk"
+						action="#{palestraUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.palestra']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permitePalestras}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{palestraUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="cursosLnk" action="#{cursoUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.curso']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteCursos}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{cursoUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="MiniCursosLnk"
+						action="#{miniCursoUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.minicurso']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteMiniCursos}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{miniCursoUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="WorkshopLnk"
+						action="#{workshopUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.workshop']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteWorkshops}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{workshopUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<web:clear />
+
+					<p:commandButton id="TipoPatrocinadoresLnk"
+						action="#{patrocinioTipoUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.patrocinadortipo']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteTipoPatrocinadores}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{patrocinioTipoUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="PatrocinadorLnk"
+						action="#{patrocinioUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.patrocinador']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permitePatrocinadores}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{patrocinioUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="apoiadoresLnk" action="#{apoioUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.apoiador']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteApoiadores}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{apoioUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="realizadoresLnk"
+						action="#{realizadorUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.realizador']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteRealizadores}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{realizadorUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="inscricoesLnk"
+						action="#{inscricaoUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.inscricao']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteInscricoes}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{inscricaoUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="financeiroLnk"
+						action="#{financeiroUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.financeiro']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteFinanceiro}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{financeiroUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="comitesLnk" action="#{comiteUI.prepareSearch}"
+						ajax="true" value="#{messages['menu.evento.comite']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteComites}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{comiteUI.filter.evento}" />
+
+					</p:commandButton>
+
+					<p:commandButton id="submissoesLnk"
+						action="#{submissaoUI.prepareSearch}" ajax="true"
+						value="#{messages['menu.evento.submissao']}"
+						style="font-size: 12px; margin-bottom: 5px;"
+						rendered="#{eventoUI.permiteSubmissoes}">
+
+						<f:setPropertyActionListener value="#{eventoUI.bean}"
+							target="#{submissaoUI.filter.evento}" />
+
+					</p:commandButton>
+
+				</div>
+
 			</fieldset>
-					
+
 		</p:outputPanel>
-		
+
 		<fieldset id="fieldsetRestricao" style="padding: 10px">
 
 			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['fieldset.confirmar']}</legend>
@@ -141,12 +322,12 @@
 				<web:outputTextField id="btnCadastrarLabel" value=".:"
 					required="false" width="120px" align="right" />
 
-				<web:field for="btnCadastrar" mode="1" required="false"
+				<web:field for="btnSalvar" mode="1" required="false"
 					addMessage="false">
 
-					<p:commandButton id="btnCadastrar"
-						value="#{messages['label.cadastrar']}" update="@form"
-						action="#{eventoUI.save}" style="margin-left: 5px;" />
+					<p:commandButton id="btnSalvar" value="#{messages['label.salvar']}"
+						update="@form" action="#{eventoUI.save}" style="margin-left: 5px;"
+						rendered="#{eventoUI.criador}" />
 
 					<p:commandButton id="btnVoltar" value="#{messages['label.voltar']}"
 						action="#{meusEventosUI.prepareSearch}" immediate="true" />

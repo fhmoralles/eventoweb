@@ -47,11 +47,9 @@
 				<p:tab title="#{messages['label.menuseventos']}">
 
 					<web:dataTable id="meusEventosUIId" rendered="#{not empty meusEventosUI.rows}"
-						value="#{meusEventosUI.rows}" styleClass="dataTable-1">
+						value="#{meusEventosUI.rows}">
 						
 						<ui:define name="columns">
-							
-							<f:attribute name="collectionType" value="java.util.ArrayList" />
 							
 							<web:column id="meusEventosUIIdOptionsCol" align="center" width="90px"
 								title="#{messages['global.options.title']}">
@@ -99,9 +97,9 @@
 							</web:column>
 
 							<web:column id="columnData"
-								title="#{messages['label.dataevento']}"  width="100px;">
+								title="#{messages['label.dataevento']}"  width="200px;">
 								<h:outputText style="text-align: center; display: block;"
-									value="#{dataTableItem.dataEvento}">
+									value="#{dataTableItem.dataInicio}">
 									<f:convertDateTime pattern="dd/MM/yyyy"
 										locale="#{localeUI.locale}" timeZone="#{timezoneUI.timeZone}" />
 								</h:outputText>

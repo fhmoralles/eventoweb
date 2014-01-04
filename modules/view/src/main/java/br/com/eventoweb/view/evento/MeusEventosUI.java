@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import org.jboss.seam.security.Identity;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 import br.com.eventoweb.domain.evento.Evento;
 import br.com.eventoweb.model.evento.spec.EventoModel;
 import br.com.eventoweb.view.evento.filter.EventoFilter;
@@ -133,8 +133,8 @@ public class MeusEventosUI extends AbstractCRUD<Evento, EventoFilter> {
 	@Override
 	protected List<Evento> searchImpl(EventoFilter filter) {
 		
-		Participante p = ((EventoUser)identity.getUser()).getUsuario().getParticipante();
-		return eventoModel.eventosParticipante(p); 
+		Cadastro c = ((EventoUser)identity.getUser()).getUsuario().getCadastro();
+		return eventoModel.eventosCadastro(c); 
 		
 	}
 

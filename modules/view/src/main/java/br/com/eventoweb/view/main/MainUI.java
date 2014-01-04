@@ -9,8 +9,6 @@ public class MainUI {
 
 	public MainUI() {
 		super();
-		 System.out.println("Criação do Bean MainUI");
-
 	}
 
 	

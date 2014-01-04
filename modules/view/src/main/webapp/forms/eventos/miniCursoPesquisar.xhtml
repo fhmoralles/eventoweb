@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.minicursos']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<web:searchOptionsPanel id="searchMiniCurso"
+			backingBean="#{miniCursoUI}" showOnly="true">
+
+			<ui:define name="searchContent">
+
+				<h:panelGrid columns="2">
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 120px; text-align: right;">
+							<h:outputText id="labelEvento"
+								value="#{messages['label.evento']}:" style="font-size: 14px;" />
+						</div>
+					</h:panelGroup>
+
+					<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+						<div style="float: left; width: 360px; text-align: left;">
+							<h:outputText id="inputEvento"
+								value="#{miniCursoUI.filter.evento.nome}"
+								style="font-size: 14px; font-weight: bold;" />
+						</div>
+					</h:panelGroup>
+
+				</h:panelGrid>
+
+			</ui:define>
+
+		</web:searchOptionsPanel>
+
+		<web:searchResultDataTable id="gridMiniCursos"
+			backingBean="#{miniCursoUI}" style="margin: 5px;">
+
+			<web:column id="cursosColumnNome" align="center"
+				title="#{messages['label.curso']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.titulo}" />
+			</web:column>
+
+			<web:column id="cursosColumnInstrutorNome" align="center"
+				title="#{messages['label.instrutor']}">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.participante.cadastro.razaoSocial}" />
+			</web:column>
+
+			<web:column id="cursosColumnInstrutorValor" align="center"
+				title="#{messages['label.valorinstrutor']}" width="200px">
+				<h:outputText style="text-align: center; display: block;"
+					value="#{dataTableItem.valorAtividade}">
+					<f:convertNumber locale="#{localeUI.locale}"
+						pattern="R$ ###,###,##0.00" />
+				</h:outputText>
+			</web:column>
+
+		</web:searchResultDataTable>
+
+	</ui:define>
+
+</ui:composition>

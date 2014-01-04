@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.patrocinioTipos']}"
+				action="#{patrocinioTipoUI.prepareSearch}" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.patrocinioTipos.cadastrar']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetCampos" style="padding: 10px;">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.cadastrar.fieldset']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPatrocinioTipoDescricao"
+					value="#{messages['label.descricao']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputPatrocinioTipoDescricao"
+					value="#{patrocinioTipoUI.bean.descricao}" required="true"
+					width="360px" />
+
+				<p:message for="inputPatrocinioTipoDescricaoText"
+					id="labelPatrocinioTipoDescricao_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPatrocinioTipoValorPatrocinador"
+					value="#{messages['label.valorpadrao']}:" required="true"
+					width="120px" align="right" />
+
+				<p:inputText id="valorPatrocinioTipoText"
+					value="#{patrocinioTipoUI.bean.valorPadrao}" required="true"
+					style="width: 100px; text-align: right;"
+					onkeyup="inputCurrency_corrigeValor(this,'#{localeUI.currencySymbol}','100')">
+
+					<f:convertNumber for="valorAtividadeText" type="currency"
+						locale="#{localeUI.locale}" />
+
+				</p:inputText>
+
+				<p:message for="valorPatrocinioTipoText"
+					id="valorPatrocinioTipoText_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+
+			<p:outputPanel id="panelExposicao">
+
+				<h:panelGrid columns="5">
+
+					<web:outputTextField id="labelExposicao"
+						value="#{messages['label.exposicao']}:" required="false"
+						width="120px" align="right" />
+
+					<web:fieldSelectOneMenu id="inputPatrocinioTipoExposicao"
+						value="#{patrocinioTipoUI.selectedExposicao}" required="false"
+						width="220px">
+
+						<f:selectItems value="#{patrocinioTipoUI.exposicoes}" var="e"
+							itemValue="#{e}" itemLabel="#{e.descricao}" />
+						<f:converter converterId="exposicaoConverter" />
+
+					</web:fieldSelectOneMenu>
+
+					<web:outputTextField id="labelQtdeExposicao"
+						value="#{messages['label.exposicaoqtde']}:" required="false"
+						width="50px" align="right" />
+
+					<p:inputText id="qtdeEsposicao"
+						value="#{patrocinioTipoUI.qtdeExposicao}" required="true"
+						style="width: 50px; text-align: right;">
+
+						<f:convertNumber for="qtdeEsposicaoText" type="number" />
+
+					</p:inputText>
+
+					<p:commandButton id="btnAddExposicao"
+						update="@form"
+						actionListener="#{patrocinioTipoUI.saveExposicao}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}"
+						process="@form" style="margin-right: 5px;" />
+
+				</h:panelGrid>
+
+			</p:outputPanel>
+
+			<p:outputPanel id="panelPatrocinoTipoExposicao">
+
+				<h:panelGrid columns="2"
+					rendered="#{not empty patrocinioTipoUI.patrocinioExposicoes}">
+
+					<web:outputTextField id="labelExposicaoDataTable" value=".:"
+						required="false" width="120px" align="right" />
+
+					<p:dataTable widgetVar="dataTableDetail"
+						id="detailDataTableExposicoes"
+						value="#{patrocinioTipoUI.patrocinioExposicoes}"
+						var="dataTableDetailItem" rows="5" paginatorAlwaysVisible="false">
+
+						<p:column>
+							<p:commandButton id="btnDelExposicao"
+								update="@form"
+								actionListener="#{patrocinioTipoUI.deleteExposicao(dataTableDetailItem)}" ajax="true"
+								icon="#{messages['global.operations.delete.icon']}"
+								process="@this" style="margin-right: 5px;" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.descricao']}" />
+							</f:facet>
+
+							<h:outputText value="#{dataTableDetailItem.exposicao.descricao}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.exposicaoqtde']}" />
+							</f:facet>
+
+							<h:outputText value="#{dataTableDetailItem.quantidade}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:panelGrid>
+
+			</p:outputPanel>
+
+			<p:outputPanel id="panelAtividade">
+
+				<h:panelGrid columns="5">
+
+					<web:outputTextField id="labelAtividade"
+						value="#{messages['label.atividade']}:" required="false"
+						width="120px" align="right" />
+
+					<web:fieldSelectOneMenu id="inputPatrocinioTipoAtividade"
+						value="#{patrocinioTipoUI.selectedAtividade}" required="false"
+						width="220px">
+
+						<f:selectItems value="#{patrocinioTipoUI.atividades}" var="e"
+							itemValue="#{e}" itemLabel="#{e.descricao}" />
+						<f:converter converterId="atividadeConverter" />
+
+					</web:fieldSelectOneMenu>
+
+					<web:outputTextField id="labelQtdeAtividade"
+						value="#{messages['label.atividadeqtde']}:" required="false"
+						width="50px" align="right" />
+
+					<p:inputText id="qtdeAtividade"
+						value="#{patrocinioTipoUI.qtdeAtividade}" required="true"
+						style="width: 50px; text-align: right;">
+
+						<f:convertNumber for="qtdeAtividadeText" type="number" />
+
+					</p:inputText>
+
+					<p:commandButton id="btnAddAtividade"
+						update="@form"
+						actionListener="#{patrocinioTipoUI.saveAtividade}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}"
+						process="@form" style="margin-right: 5px;" />
+
+				</h:panelGrid>
+
+			</p:outputPanel>
+
+			<p:outputPanel id="panelPatrocinoTipoAtividade">
+
+				<h:panelGrid columns="2"
+					rendered="#{not empty patrocinioTipoUI.patrocinioAtividades}">
+
+					<web:outputTextField id="labelAtividadeDataTable" value=".:"
+						required="false" width="120px" align="right" />
+
+					<p:dataTable widgetVar="dataTableDetail"
+						id="detailDataTableAtividades"
+						value="#{patrocinioTipoUI.patrocinioAtividades}"
+						var="dataTableDetailItem" rows="5" paginatorAlwaysVisible="false">
+
+						<p:column>
+							<p:commandButton id="btnDelAtividade"
+								update="@form"
+								actionListener="#{patrocinioTipoUI.deleteAtividade(dataTableDetailItem)}" ajax="true"
+								icon="#{messages['global.operations.delete.icon']}"
+								process="@this" style="margin-right: 5px;" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.descricao']}" />
+							</f:facet>
+
+							<h:outputText value="#{dataTableDetailItem.atividade.descricao}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.atividadeqtde']}" />
+							</f:facet>
+
+							<h:outputText value="#{dataTableDetailItem.quantidade}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:panelGrid>
+
+			</p:outputPanel>
+
+		</fieldset>
+
+		<fieldset id="fieldsetPatrocinioTipoOpcoes" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.opcoes.fieldset']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnIncluirLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnIncluir" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnIncluir"
+						rendered="#{not patrocinioTipoUI.isViewing()}"
+						value="#{(patrocinioTipoUI.isInserting()) ? messages['global.msg.incluir'] : messages['global.msg.atualizar']}"
+						update="@form" action="#{patrocinioTipoUI.save}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}" process="@form"
+						style="margin-right: 5px;" />
+
+					<p:commandButton id="btnReset"
+						rendered="#{not patrocinioTipoUI.isViewing()}"
+						value="#{messages['global.msg.reset']}" update="@form"
+						icon="#{messages['global.operations.reset.icon']}" process="@this"
+						style="margin-right: 5px;" immediate="true" />
+
+					<p:commandButton id="btnVoltar"
+						value="#{messages['global.msg.voltar']}" update="@form"
+						action="#{patrocinioTipoUI.prepareSearch}" ajax="true"
+						icon="#{messages['global.operations.back.icon']}" process="@this"
+						style="margin-right: 5px;" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

@@ -8,15 +8,15 @@ import javax.inject.Named;
 
 import org.jboss.seam.security.annotations.LoggedIn;
 
-import br.com.eventoweb.domain.cadastro.Participante;
-import br.com.eventoweb.model.cadastro.spec.ParticipanteModel;
+import br.com.eventoweb.domain.cadastro.Cadastro;
+import br.com.eventoweb.model.cadastro.spec.CadastroModel;
 import br.com.eventoweb.view.cadastro.filter.ParticipanteFilter;
 import br.com.webutils.ui.AbstractCRUD;
 
 @Named
 @SessionScoped
 @LoggedIn
-public class ParticipanteUI extends AbstractCRUD<Participante, ParticipanteFilter> {
+public class ParticipanteUI extends AbstractCRUD<Cadastro, ParticipanteFilter> {
 
 
 	//private static final Logger LOG = Logger.getLogger(ParticipanteUI.class);
@@ -31,7 +31,7 @@ public class ParticipanteUI extends AbstractCRUD<Participante, ParticipanteFilte
 
 	/* Modelo */
 	@Inject
-	private ParticipanteModel participanteModel;
+	private CadastroModel participanteModel;
 
 	public ParticipanteUI() {
 		super(new ParticipanteFilter());
@@ -44,7 +44,7 @@ public class ParticipanteUI extends AbstractCRUD<Participante, ParticipanteFilte
 	}
 
 	@Override
-	protected void deleteImpl(Participante bean) throws Exception {
+	protected void deleteImpl(Cadastro bean) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -106,7 +106,7 @@ public class ParticipanteUI extends AbstractCRUD<Participante, ParticipanteFilte
 	}
 
 	@Override
-	protected boolean isValidBean(Participante bean) {
+	protected boolean isValidBean(Cadastro bean) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -118,19 +118,19 @@ public class ParticipanteUI extends AbstractCRUD<Participante, ParticipanteFilte
 	}
 
 	@Override
-	protected Participante newInstance() {
-		return new Participante();
+	protected Cadastro newInstance() {
+		return new Cadastro();
 	}
 
 	@Override
-	protected void saveImpl(Participante bean) throws Exception {
+	protected void saveImpl(Cadastro bean) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected List<Participante> searchImpl(ParticipanteFilter filter) {
-		return participanteModel.buscarParticipante("%" + filter.getNome() + "%");
+	protected List<Cadastro> searchImpl(ParticipanteFilter filter) {
+		return participanteModel.buscarCadastro("%" + filter.getNome() + "%");
 	}
 
 

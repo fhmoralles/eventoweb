@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.financeiros']}"
+				action="#{financeiroUI.prepareSearch}" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.financeiros.cadastrar']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetCampos" style="padding: 10px;">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.cadastrar.fieldset']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelFinanceiroDescricao"
+					value="#{messages['label.descricao']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldInputText id="inputFinanceiroDescricao"
+					value="#{financeiroUI.bean.descricao}" required="true"
+					width="360px" />
+
+				<p:message for="inputFinanceiroDescricaoText"
+					id="inputFinanceiroDescricao_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelFinanceiroValorFinanceiro"
+					value="#{messages['label.valorfinanceiro']}:" required="true"
+					width="120px" align="right" />
+
+				<p:inputText id="inputValorFinanceiro"
+					value="#{financeiroUI.bean.valorFinanceiro}" required="true"
+					style="width: 100px; text-align: right;"
+					onkeyup="inputCurrency_corrigeValor(this,'#{localeUI.currencySymbol}','100')">
+
+					<f:convertNumber for="inputValorFinanceiroText" type="currency"
+						locale="#{localeUI.locale}" />
+
+				</p:inputText>
+
+				<p:message for="inputValorFinanceiro"
+					id="inputValorFinanceiro_message" display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelTipoLancamento"
+					value="#{messages['label.valorpalestrante']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldSelectOneMenu id="inputSelectTipoLancamento" width="110px"
+					value="#{financeiroUI.tipoLancamento}" required="true">
+
+					<f:selectItem
+						itemLabel="#{web:nvl(emptyLabel, messages['label.debito'])}"
+						itemValue="D" />
+
+					<f:selectItem
+						itemLabel="#{web:nvl(emptyLabel, messages['label.credito'])}"
+						itemValue="C" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputSelectTipoLancamentoText"
+					id="valorAtividadeText_message" display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetFinanceiroOpcoes" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.opcoes.fieldset']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnIncluirLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnIncluir" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnIncluir"
+						rendered="#{not financeiroUI.isViewing()}"
+						value="#{(financeiroUI.isInserting()) ? messages['global.msg.incluir'] : messages['global.msg.atualizar']}"
+						update="@form" action="#{financeiroUI.save}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}" process="@form"
+						style="margin-right: 5px;" />
+
+					<p:commandButton id="btnReset"
+						rendered="#{not financeiroUI.isViewing()}"
+						value="#{messages['global.msg.reset']}" update="@form"
+						icon="#{messages['global.operations.reset.icon']}" process="@this"
+						style="margin-right: 5px;" immediate="true" />
+
+					<p:commandButton id="btnVoltar"
+						value="#{messages['global.msg.voltar']}" update="@form"
+						action="#{financeiroUI.prepareSearch}" ajax="true"
+						icon="#{messages['global.operations.back.icon']}" process="@this"
+						style="margin-right: 5px;" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.eventosubmissao']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+		
+		#{eventoSubmissaoUI.buscarEvento()}
+				
+		<fieldset id="fieldsetLogin" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['label.eventosubmissao']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+					<div style="float: left; width: 120px; text-align: right;">
+						<h:outputText id="labelEvento"
+							value="#{messages['label.evento']}:" style="font-size: 14px;" />
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{web:nvl(rendered, true)}">
+					<div style="float: left; width: 360px; text-align: left;">
+						<h:outputText id="inputEvento"
+							value="#{eventoSubmissaoUI.evento.nome}"
+							style="font-size: 14px; font-weight: bold;" />
+					</div>
+				</h:panelGroup>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelTema"
+					value="#{messages['label.tema']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldSelectOneMenu id="inputTema"
+					value="#{eventoSubmissaoUI.tema}" width="365px" required="false">
+
+					<f:selectItems value="#{eventoSubmissaoUI.temas}" var="p"
+						itemValue="#{p}" itemLabel="#{p.descricao}" />
+
+					<f:converter converterId="temaConverter" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputTemaText" id="inputTema_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelArquivo"
+					value="#{messages['label.arquivo']}:" required="true" width="120px"
+					align="right" />
+
+				<p:commandLink id="adicionarNovoAnexo"
+					onclick="adicionarArquivosDialog.show()" immediate="true">
+					<h:outputText value="#{messages['label.arquivoselecionar']}" />
+				</p:commandLink>
+
+				<p:message for="labelArquivo" id="inputtArquivo_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="labelArquivoPonto" value=".:"
+					required="false" width="120px" align="right" />
+
+				<p:outputPanel id="panelArquivos" autoUpdate="true">
+
+					<ul>
+						<ui:repeat value="#{eventoSubmissaoUI.arquivos}"
+							var="dataTableItem">
+							<li>
+								<p:commandLink action="#{eventoSubmissaoUI.removerArquivo}"
+									process="@form" update="@form"
+									style="margin-right: 5px;">
+
+									<f:setPropertyActionListener value="#{dataTableItem}"
+										target="#{eventoSubmissaoUI.arquivo}" />
+
+									<h:outputText value="#{messages['global.operations.delete']}" />
+
+								</p:commandLink> 
+								
+								<h:outputText value="[#{dataTableItem.situacao}] " /> 
+								
+								<h:outputText
+									value="#{dataTableItem.file.fileName} (#{dataTableItem.file.size} bytes)" />
+							</li>
+						</ui:repeat>
+					</ul>
+
+				</p:outputPanel>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetOpcoes" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.opcoes.fieldset']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnIncluirLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnIncluir" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnIncluir"
+						value="#{messages['label.enviar']}" update="@form"
+						action="#{eventoSubmissaoUI.save}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}" process="@form"
+						style="margin-right: 5px;" />
+
+					<p:commandButton id="btnReset"
+						rendered="#{not comiteUI.isViewing()}"
+						value="#{messages['global.msg.reset']}" update="@form"
+						icon="#{messages['global.operations.reset.icon']}" process="@this"
+						style="margin-right: 5px;" immediate="true" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+	</ui:define>
+
+	<ui:define name="dialogs">
+
+		<p:dialog id="_adicionarArquivosDialog"
+			widgetVar="adicionarArquivosDialog"
+			header="#{messages['label.arquivoselecionar']}" resizable="false"
+			modal="true">
+
+			<h:form id="adicionarArquivosDialogForm">
+
+				<web:field mode="4" for="fileUpload">
+
+					<p:fileUpload id="fileUpload"
+						fileUploadListener="#{eventoSubmissaoUI.uploadArquivo}"
+						mode="advanced" multiple="true" auto="true"
+						label="#{messages['global.operations.add']}" sizeLimit="10000000" />
+
+				</web:field>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog id="_loginSubmissaoDialog"
+			widgetVar="loginSubmissaoDialog"
+			header="#{messages['login.titulo']}" resizable="false" modal="true">
+
+			<h:form id="loginSubmissaoDialogForm">
+
+				<fieldset id="fieldsetLogin" style="padding: 10px">
+	
+					<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['login.titulo']}</legend>
+	
+					<h:panelGrid columns="1">
+	
+						<h:panelGrid columns="3">
+	
+							<web:outputTextField id="userNameLabel"
+								value="#{messages['login.usuario']}:" required="true"
+								width="120px" align="right" />
+	
+							<web:fieldMask id="userName" label="" required="true" width="300px"
+								value="#{credentials.username}" />
+	
+							<p:message for="userNameText" id="userName_message" display="text"
+								redisplay="true" />
+	
+						</h:panelGrid>
+	
+	
+						<h:panelGrid columns="3">
+	
+							<web:outputTextField id="senhaPwdLabel"
+								value="#{messages['login.senha']}:" required="true" width="120px"
+								align="right" />
+	
+							<web:fieldPassword id="senhaPwd" value="#{credentials.password}"
+								width="100px" required="true" />
+	
+							<p:message for="senhaPwdText" id="senhaPwd_message" display="text"
+								redisplay="true" />
+	
+						</h:panelGrid>
+	
+						<web:clear />
+	
+						<h:panelGrid columns="2">
+						
+							<web:outputTextField id="compLabel"
+								value=".:" required="false" width="120px"
+								align="right" />
+						
+							<web:field label="" for="btnLogin" mode="1" required="false"
+								addMessage="false">
+		
+								<p:commandButton id="btnLogin" value="#{messages['login.logar']}" update="@form"
+									action="#{loginUI.login}" />
+		
+								<h:commandLink id="esqueceuSenhaLnk"
+									value="#{messages['login.esqueceu.senha']}"
+									action="#{loginUI.esqueceuSenha}" immediate="true" />
+		
+							</web:field>
+							
+						</h:panelGrid>
+	
+					</h:panelGrid>
+	
+				</fieldset>
+
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

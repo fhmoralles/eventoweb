@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/forms/default/template.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:web="http://www.web.com.br/jsf/webutils">
+
+	<ui:define name="breadcrumbEvento">
+
+		<web:breadcrumb urlIndex="/index.xhtml">
+
+			<p:menuitem value="#{messages['navegacao.meuseventos']}"
+				action="#{meusEventosUI.prepareSearch}" />
+
+
+			<p:menuitem value="#{messages['navegacao.editarevento']}"
+				action="/forms/eventos/eventoCadastrar.xhtml" />
+
+			<p:menuitem value="#{messages['navegacao.editarevento.palestras']}"
+				action="#{palestraUI.prepareSearch}" />
+
+			<p:menuitem
+				value="#{messages['navegacao.editarevento.palestras.cadastrar']}" />
+
+		</web:breadcrumb>
+
+	</ui:define>
+
+	<ui:define name="contentEvento">
+
+		<fieldset id="fieldsetCampos" style="padding: 10px;">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.cadastrar.fieldset']}</legend>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPalestraPalestrante"
+					value="#{messages['label.palestrante']}:" required="true"
+					width="120px" align="right" />
+
+				<p:commandButton id="participanteSearch" icon="ui-icon-search"
+					process="@this" update="searchParticipanteDialog"
+					actionListener="#{participanteUI.reset}"
+					oncomplete="searchParticipanteDialog.show()" />
+
+				<p:outputPanel id="outputPalestranteNome">
+
+					<p:inputText id="participanteNomeText"
+						value="#{palestraUI.bean.participante.cadastro.razaoSocial}"
+						required="true" style="width: 325px;" readonly="true" />
+
+					<p:message for="participanteNomeText"
+						id="participanteNomeText_message" display="text" redisplay="true" />
+
+				</p:outputPanel>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelTema"
+					value="#{messages['label.tema']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldSelectOneMenu id="inputTema"
+					value="#{palestraUI.bean.tema}" required="true" width="365px">
+
+					<f:selectItems value="#{palestraUI.temas}" var="p" itemValue="#{p}"
+						itemLabel="#{p.descricao}" />
+
+					<f:converter converterId="temaConverter" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputTemaText" id="inputTema_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPalestraTitulo"
+					value="#{messages['label.titulo']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldInputText id="inputPalestraTitulo"
+					value="#{palestraUI.bean.titulo}" required="true" width="360px" />
+
+				<p:message for="inputPalestraTituloText"
+					id="labelPalestraTitulo_message" display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPalestraDescricao"
+					value="#{messages['label.descricao']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldTextarea id="inputPalestraDescricao"
+					value="#{palestraUI.bean.descricao}" required="true" width="360px" />
+
+				<p:message for="inputPalestraDescricaoText"
+					id="labelPalestraDescricao_message" display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelDataAtividade"
+					value="#{messages['label.dataatividade']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldSelectOneMenu id="inputDataAtividade"
+					value="#{palestraUI.bean.dataAtividade}" required="true"
+					width="365px">
+
+					<f:selectItems value="#{palestraUI.datasAtividade}" var="p"
+						itemValue="#{p}" itemLabel="#{p}" />
+						
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						locale="#{localeUI.locale}" timeZone="#{timeZoneUI.timeZone}" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputDataAtividadeText" id="inputDataAtividade_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="5">
+
+				<web:outputTextField id="labelPalestraHoraInicio"
+					value="#{messages['label.horainicio']}:" required="true"
+					width="120px" align="right" />
+
+				<web:fieldMask id="inputPalestraHoraInicio"
+					value="#{palestraUI.bean.horaInicio}" required="true" width="110px"
+					mask="99:99" />
+
+				<web:outputTextField id="labelPalestraHoraFim"
+					value="#{messages['label.horafim']}:" required="true" width="125px"
+					align="right" />
+
+				<web:fieldMask id="inputPalestraHoraFim"
+					value="#{palestraUI.bean.horaFim}" required="true" width="110px"
+					mask="99:99" />
+
+				<p:message for="inputPalestraHoraInicioText"
+					id="labelPalestraHoraInicio_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelLugaresEspacoPalestra"
+					value="#{messages['label.espaco']}:" required="true" width="120px"
+					align="right" />
+
+				<web:fieldSelectOneMenu id="inputLugaresEspacoPalestra"
+					value="#{palestraUI.bean.espaco}" required="true" width="365px">
+
+					<f:selectItems value="#{palestraUI.espacos}" var="p"
+						itemValue="#{p}"
+						itemLabel="#{p.cadastro.razaoSocial} -> #{p.descricao}" />
+					<f:converter converterId="espacoConverter" />
+
+				</web:fieldSelectOneMenu>
+
+				<p:message for="inputLugaresEspacoPalestraText"
+					id="inputLugaresEspacoPalestra_message" display="text"
+					redisplay="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+
+				<web:outputTextField id="labelPalestraValorPalestrante"
+					value="#{messages['label.valorpalestrante']}:" required="true"
+					width="120px" align="right" />
+
+				<p:inputText id="valorAtividadeText"
+					value="#{palestraUI.bean.valorAtividade}" required="true"
+					style="width: 100px; text-align: right;"
+					onkeyup="inputCurrency_corrigeValor(this,'#{localeUI.currencySymbol}','100')">
+
+					<f:convertNumber for="valorAtividadeText" type="currency"
+						locale="#{localeUI.locale}" />
+
+				</p:inputText>
+
+				<p:message for="valorAtividadeText" id="valorAtividadeText_message"
+					display="text" redisplay="true" />
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<fieldset id="fieldsetOpcoes" style="padding: 10px">
+
+			<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.opcoes.fieldset']}</legend>
+
+			<h:panelGrid columns="2">
+
+				<web:outputTextField id="btnIncluirLabel" value=".:"
+					required="false" width="120px" align="right" />
+
+				<web:field for="btnIncluir" mode="1" required="false"
+					addMessage="false">
+
+					<p:commandButton id="btnIncluir"
+						rendered="#{not palestraUI.isViewing()}"
+						value="#{(palestraUI.isInserting()) ? messages['global.msg.incluir'] : messages['global.msg.atualizar']}"
+						update="@form" action="#{palestraUI.save}" ajax="true"
+						icon="#{messages['global.operations.save.icon']}" process="@form"
+						style="margin-right: 5px;" />
+
+					<p:commandButton id="btnReset"
+						rendered="#{not palestraUI.isViewing()}"
+						value="#{messages['global.msg.reset']}" update="@form"
+						icon="#{messages['global.operations.reset.icon']}" process="@this"
+						style="margin-right: 5px;" immediate="true" />
+
+					<p:commandButton id="btnVoltar"
+						value="#{messages['global.msg.voltar']}" update="@form"
+						action="#{palestraUI.prepareSearch}" ajax="true"
+						icon="#{messages['global.operations.back.icon']}" process="@this"
+						style="margin-right: 5px;" />
+
+				</web:field>
+
+			</h:panelGrid>
+
+		</fieldset>
+
+		<!-- Janela de Pesquisa de Lugar -->
+		<p:dialog id="searchParticipanteDialog"
+			header="#{messages['search.palestrante.msg']}"
+			widgetVar="searchParticipanteDialog" resizable="false" modal="true">
+
+			<p:ajax event="close" update="@form" />
+
+			<fieldset id="fieldSearchParticipante" style="padding: 10px;">
+
+				<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.filtro.fieldset']}</legend>
+
+				<!-- Bloco de Entidade -->
+				<h:panelGrid columns="2">
+
+					<web:outputTextField id="searchParticipanteNomeLabel"
+						value="#{messages['label.nome']}:" required="false" width="120px"
+						align="right" />
+
+					<web:fieldInputText id="fieldTextParticipanteSearchNome"
+						value="#{participanteUI.filter.nome}" required="true"
+						width="200px" />
+
+				</h:panelGrid>
+				<!-- ************ -->
+
+				<!-- Botões -->
+				<h:panelGrid columns="2">
+
+					<web:outputTextField id="btnParticipanteSearchLabel" value=".:"
+						required="false" width="120px" align="right" />
+
+					<p:commandButton id="btnParticipanteSearch"
+						value="#{messages['global.msg.search']}"
+						update="particpantesDataTable" process="searchParticipanteDialog"
+						actionListener="#{participanteUI.search}" />
+
+				</h:panelGrid>
+				<!-- ************** -->
+
+			</fieldset>
+
+			<fieldset id="fieldResultadoParticipante"
+				style="padding: 10px; height: 300px;">
+
+				<legend style="font-weight: bold; font-size: 16px; width: auto;">#{messages['global.result.fieldset']}</legend>
+
+				<web:dataTable id="particpantes" value="#{participanteUI.rows}"
+					paginator="true" rows="7" style="width: 900px;" scrollable="false"
+					dynamic="false">
+
+					<ui:define name="columns">
+
+						<web:column id="columnBotaoExcluir" align="center" width="100px">
+
+							<p:commandButton id="selectBtn" process="@this" immediate="true"
+								oncomplete="searchParticipanteDialog.hide();"
+								title="#{messages['global.msg.select']}" icon="ui-icon-check">
+
+								<f:setPropertyActionListener value="#{dataTableItem}"
+									target="#{palestraUI.bean.participante.cadastro}" />
+
+							</p:commandButton>
+
+						</web:column>
+
+						<web:column id="columnParticipanteNome"
+							title="#{messages['label.razaosocial']}" align="center">
+							<h:outputText style="text-align: center; display: block;"
+								value="#{dataTableItem.razaoSocial}" />
+						</web:column>
+
+					</ui:define>
+
+				</web:dataTable>
+
+			</fieldset>
+
+		</p:dialog>
+		<!-- ***************************** -->
+
+	</ui:define>
+
+</ui:composition>

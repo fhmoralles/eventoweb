@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import br.com.eventoweb.domain.cadastro.Participante;
+import br.com.eventoweb.domain.cadastro.Cadastro;
 
 @Entity
 @Table(name = "usuario")
@@ -37,8 +37,8 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_participante", nullable = false, insertable = true, updatable = false)
-	private Participante participante;
+	@JoinColumn(name = "id_cadastro", nullable = false, insertable = true, updatable = false)
+	private Cadastro cadastro;
 
 	@Column(name = "email", nullable = false, insertable = true, updatable = false, length = 255, unique = true)
 	private String email;
@@ -68,12 +68,12 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public Participante getParticipante() {
-		return participante;
+	public Cadastro getCadastro() {
+		return cadastro;
 	}
 
-	public void setParticipante(Participante participante) {
-		this.participante = participante;
+	public void setCadastro(Cadastro cadastro) {
+		this.cadastro = cadastro;
 	}
 
 	public String getEmail() {
@@ -130,8 +130,8 @@ public class Usuario implements Serializable {
 		if (arg0 instanceof Usuario) {
 			final Usuario c = (Usuario) arg0;
 			return new EqualsBuilder().append(
-					this.getParticipante().getDocumento(),
-					c.getParticipante().getDocumento()).isEquals();
+					this.getCadastro().getDocumento(),
+					c.getCadastro().getDocumento()).isEquals();
 		}
 		return false;
 	}
@@ -139,7 +139,7 @@ public class Usuario implements Serializable {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(
-				this.getParticipante().getDocumento()).toHashCode();
+				this.getCadastro().getDocumento()).toHashCode();
 	}
 
 }
